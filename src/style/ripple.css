@@ -1,0 +1,39 @@
+
+
+.micro {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--width);
+    height: var(--height);
+    background-color: var(--primary);
+    border-radius: var(--borderRadius);
+  }
+  
+  .micro:before,
+  .micro:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: solid 3px var(--primary);
+    border-radius: var(--borderRadius);
+  }
+  
+  .micro:before {
+    animation: ripple 2s linear infinite;
+  }
+  
+  .micro:after {
+    animation: ripple 2s 1s linear infinite;
+  }
+  
+  @keyframes ripple {
+    to {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }

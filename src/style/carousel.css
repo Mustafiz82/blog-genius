@@ -1,0 +1,64 @@
+
+.swiper-pagination {
+    position: absolute !important;
+    text-align: left !important;
+    left: 5% !important;  
+    bottom: 5% !important;  
+    z-index: 10;  
+  }
+  /* Style for all pagination bullets */
+  .swiper-pagination-bullet {
+    opacity: 0.5 !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-color: white !important;
+    margin-right: 10px !important;
+  
+  }
+  
+  /* Style for the active pagination bullet */
+  .swiper-pagination-bullet-active {
+    opacity: 1 !important;
+    background-color: white !important;
+    position: relative;
+  
+  
+    /* You can change this to any color you like */
+  }
+  
+  .swiper-pagination-bullet-active::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    margin-top: -80% !important; /* Offset the element by half of its height */
+    margin-left: -80% !important; /* Offset the element by half of its width */
+    width: 160% !important;
+    height: 160% !important;
+    z-index: 999 !important;
+    background-color: transparent !important;
+    border-left: 1.5px solid white !important;
+    border-right: 1.5px solid white !important;
+    box-sizing: border-box;
+    border-radius: 100%;
+    animation: animate-border 1s linear infinite;
+    transform-origin: center;
+    transform: rotate(0deg);
+  
+    /* You can change this to any color you like */
+  }
+  
+  @keyframes animate-border {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  
+  
+  .swiper-button-next , .swiper-button-prev {
+    visibility: hidden !important;
+  }
