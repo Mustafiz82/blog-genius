@@ -5,7 +5,8 @@
   --foreground: #171717;
   --width: 12px;
   --height: 12px;
-  --primary: #db556d;
+  /* --primary: #db556d; */
+  --primary: #8E67E6;
   --body: #f1f3f6;
   --borderRadius: 50%;
 }
@@ -13,7 +14,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #db556d;
+  --color-primary: var(--primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -51,66 +52,65 @@ body {
 .gradient-bg {
   background-image: linear-gradient(
     90deg,
-    #dce9f8 0%,   /* Very Light Blue */
-    #e9ddf3 50%,  /* Very Light Purple */
-    #fbe4ec 100%  /* Very Light Pink */
+    #dce9f8 0%,
+    /* Very Light Blue */ #e9ddf3 50%,
+    /* Very Light Purple */ #fbe4ec 100% /* Very Light Pink */
   );
+}
+
+.step {
+  position: relative;
+}
+
+.step-line {
+  position: absolute;
+  top: 40%;
+  left: 60%;
+  transform: translateX(-50%, -50%);
+  width: 0vw;
+  height: 12px;
+  animation: 0.6s linear increase-step forwards;
+  background-color: #8E67E6;
+}
+
+.step-line-reverse {
+  position: absolute;
+  top: 40%;
+  width: 0vw;
+  height: 12px;
+
+  left: -15.5vw;
+  animation: 0.6s linear decrease-step;
+  background-color: #8E67E6;
+}
+
+@keyframes increase-step {
+  0% {
+    width: 0vw;
+  }
+  100% {
+    width: 16vw;
+  }
+}
+
+@keyframes decrease-step {
+  0% {
+    width: 16vw;
+  }
+  100% {
+    width: 0vw;
+  }
 }
 
 
 
-.img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  }
-  
-  .img-container {
-  width: 400px;
-  height: 400px;
-  }
 
-  .image{
-    transition: 0.3s          ;
-    transition-property: all;
-    min-width: 110%;
-    /* object-fit: cover; */
-  }
-
-
-  .image:hover{
-    /* min-width: 10% !important; */
-    margin: auto;
-   
-    
-    /* margin-right:10% ; */
-    /* transform:translateX(-5%) ; */
-    /* animation: animate-image 0.5s linear  ; */
-    /* opacity: 0; */
-    
-
-  }
-
-
-  @keyframes animate-image {
-    0%{
-      transform:translateX(0%) ;
-      
-      opacity: 1;
-    }
-    50%{
-      transform:translateX(-5%) ;
-      /* min-width: 150%; */
-      opacity: 0.5;
-    }
-    51%{
-      transform:translateX(5%) ;
-      /* min-width: 150%; */
-      opacity: 0.5;
-    }
-    100%{
-      transform:translateX(0%) ;
-      opacity: 1;
-    }
-    
-  }
+h1 {
+  @apply text-2xl font-bold;
+}
+h2 {
+  @apply text-xl font-semibold;
+}
+h3 {
+  @apply text-lg font-medium;
+}

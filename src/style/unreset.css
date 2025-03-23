@@ -1,0 +1,190 @@
+
+.unreset a {
+	color: #3b82f6;
+	/* text-blue-700 */
+	text-decoration: underline;
+}
+
+.unreset p {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.unreset blockquote,
+.unreset figure {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	margin-left: 2.5rem;
+	margin-right: 2.5rem;
+}
+
+.unreset hr {
+	border: 1px solid #000;
+	/* border */
+}
+
+.unreset h1 {
+	font-size: 2.25rem;
+	/* text-4xl */
+	font-weight: bold;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.unreset h2 {
+	font-size: 1.5rem !important;
+	/* text-2xl */
+	font-weight: bold;
+	margin-top: 0.75rem;
+	margin-bottom: 0.75rem;
+}
+
+.unreset h3 {
+	font-size: 1.125rem;
+	/* text-lg */
+	font-weight: bold;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.unreset h4 {
+	font-size: 1rem;
+	/* text-base */
+	font-weight: bold;
+	margin-top: 1.25rem;
+	margin-bottom: 1.25rem;
+}
+
+.unreset h5 {
+	font-size: 0.875rem;
+	/* text-sm */
+	font-weight: bold;
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.unreset h6 {
+	font-size: 0.75rem;
+	/* text-xs */
+	font-weight: bold;
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
+}
+
+.unreset article h1 {
+	font-size: 1.25rem;
+	/* text-2xl */
+	font-weight: bold;
+	margin-top: 0.75rem;
+	margin-bottom: 0.75rem;
+}
+
+.unreset article article h1,
+.unreset article aside h1,
+.unreset article nav h1,
+.unreset article section h1 {
+	font-size: 1.125rem;
+	/* text-lg */
+	font-weight: bold;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.unreset article article article h1,
+.unreset article article aside h1,
+.unreset article article nav h1,
+.unreset article article section h1 {
+	font-size: 1rem;
+	/* text-base */
+	font-weight: bold;
+	margin-top: 1.25rem;
+	margin-bottom: 1.25rem;
+}
+
+.unreset article article article article h1,
+.unreset article article article aside h1,
+.unreset article article article nav h1,
+.unreset article article article section h1 {
+	font-size: 0.875rem;
+	/* text-sm */
+	font-weight: bold;
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.unreset article article article article article h1,
+.unreset article article article article aside h1,
+.unreset article article article article nav h1,
+.unreset article article article article section h1 {
+	font-size: 0.75rem;
+	/* text-xs */
+	font-weight: bold;
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
+}
+
+.unreset ul,
+.unreset menu {
+	list-style-type: disc;
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
+	padding-left: 2.5rem;
+}
+
+.unreset ol {
+	list-style-type: decimal;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	padding-left: 2.5rem;
+}
+
+.unreset ul ul {
+	list-style-type: circle;
+}
+
+.unreset ul ul ul {
+	list-style-type: square;
+}
+
+.unreset dd {
+	padding-left: 2.5rem;
+}
+
+.unreset dl {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.unreset ul,
+.unreset ol,
+.unreset menu,
+.unreset dl {
+	margin: 0;
+}
+
+.unreset legend {
+	padding-top: 0;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+}
+
+.unreset fieldset {
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+	padding-top: 0;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	padding-bottom: 0.5rem;
+}
+
+.unreset b,
+.unreset strong {
+	font-weight: bold;
+}
+
+.unreset pre {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}

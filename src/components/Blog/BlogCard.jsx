@@ -10,7 +10,7 @@ const BlogCard = () => {
                         alt="Helmet"
                         width={500}
                         height={500}
-                        className="w-full group-hover:scale-125 duration-500 h-auto object-cover"
+                        className="w-full group-hover:scale-110 duration-500 h-auto object-cover"
                     />
              
                 </div>

@@ -1,6 +1,7 @@
 import Banner from "@/components/Home/Banner";
 import Blog from "@/components/Home/Blog";
 import Categories from "@/components/Home/Categories";
+import Newsletter from "@/components/Home/Newsletter";
 import InfiniteImageSlider from "@/components/Home/Slider";
 import Slider from "@/components/Home/Slider";
 import Text from "@/components/Home/Text";
@@ -14,7 +15,8 @@ export default function Home() {
       {/* <Slider/> */}
       <InfiniteImageSlider />
       <Categories />
-     <Blog/>
+      <Blog />
+      <Newsletter />
 
     </div>
   );

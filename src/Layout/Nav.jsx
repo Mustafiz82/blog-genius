@@ -6,6 +6,8 @@ import "../style/toggle.css"
 import "../style/search.css"
 import { BiSearchAlt } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
+
 
 
 
@@ -22,43 +24,54 @@ const Nav = () => {
     ]
     return (
         <div className="relative">
-            <div className='py-3 shadow-sm   flex justify-between items-center 2xl:text-lg bg-white px-5 w-full '>
+            <div className='py-4 shadow-sm   flex justify-between items-center 2xl:text-lg bg-white px-5 w-full '>
                 {/* <h1>hello this is nav</h1> */}
-                <Image src={"/images/logo.png"} width={1000} height={1000} className='w-[250px] 2xl:w-[300px] h-auto' alt='logo' />
+                {/* <Image src={"/images/logo.png"} width={1000} height={1000} className='w-[250px] 2xl:w-[300px] h-auto' alt='logo' /> */}
+
+                <h2 className='!text-3xl font-medium uppercase '>
+                    Blog Genius Ai
+                </h2>
 
 
-                <ul className='flex gap-5'>
-                    {
-                        route?.map((item, idx) => <li key={idx}>
-                            <Link href={item?.link || "#"}>
-                                {item?.title}
-                            </Link>
-                        </li>)
-                    }
 
-                </ul>
 
 
                 <div className='flex gap-5 items-center'>
 
+                    <ul className='flex font-light gap-5'>
+                        {
+                            route?.map((item, idx) => <li key={idx}>
+                                <Link href={item?.link || "#"}>
+                                    {item?.title}
+                                </Link>
+                            </li>)
+                        }
+
+                    </ul>
 
                     <div >
-                        <BiSearchAlt onClick={() => setIsOpen(true)} className='text-3xl cursor-pointer' />
+                        <CiSearch onClick={() => setIsOpen(true)} className='text-3xl cursor-pointer' />
                     </div>
 
-                    <label className="switch">
+                    <button className='hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md'>
+                        Login
+                    </button>
+
+                    {/* <label className="switch">
                         <input type="checkbox" />
                         <span className="slider"></span>
-                    </label>
+                    </label> */}
 
-                    <Image src={"/images/profile.png"} width={1000} height={1000} className='w-[30px] 2xl:w-[30px] h-auto' alt='logo' />
+
+
+                    {/* <Image src={"/images/profile.png"} width={1000} height={1000} className='w-[30px] 2xl:w-[30px] h-auto' alt='logo' /> */}
 
 
                 </div>
             </div>
 
 
-            <div className={`${isOpen ? "translate-y-0" : "-translate-y-full"} absolute flex gap-4 flex-col duration-500 py-5 items-center top-0 w-full h-[300px] bg-white shadow-sm `}>
+            <div className={`${isOpen ? "translate-y-0" : "-translate-y-full"} absolute flex z-[999] gap-4 flex-col duration-500 py-5 items-center top-0 w-full h-[300px] bg-white shadow-sm `}>
                 <IoCloseOutline onClick={() => setIsOpen(false)} className="text-7xl leading-0 cursor-pointer" />
                 <h2 className='text-xl font-semibold'>Type and hit Enter to search
                 </h2>
