@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 
-export default function ThumbnailUploader({setBlogData}) {
-  const [image, setImage] = useState(null);
+export default function ThumbnailUploader({blogData ,setBlogData}) {
+  const [image, setImage] = useState(blogData?.thumbnail || "");
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function ThumbnailUploader({setBlogData}) {
       onDragOver={(e) => e.preventDefault()}
     >
       {image ? (
-        <img src={image} alt="Thumbnail" className="h-full w-auto rounded-lg" />
+        <img src={URL.createObjectURL(blogData.thumbnail)} alt="Thumbnail" className="h-full w-auto rounded-lg" />
       ) : (
         <div className="flex flex-col justify-center items-center">
             <Image alt="thumbnail" src={"/images/image-icon.png"}

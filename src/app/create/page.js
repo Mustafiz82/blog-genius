@@ -1,6 +1,7 @@
 "use client";
 import Blog from "@/components/Create/Blog";
 import Details from "@/components/Create/Details";
+import Publish from "@/components/Create/Publish";
 import Step from "@/components/Create/Step";
 import ThumbnailUploader from "@/components/Create/ThumbnailUploader";
 import Title from "@/components/Create/Title";
@@ -65,7 +66,7 @@ const Page = () => {
     const handleNext = () => {
         if (currentStep === 0 && !BlogData.title.trim()) return;
         if (currentStep === 1 && !BlogData.blog.blocks) return;
-        if (currentStep === 2 && !BlogData.thumbnail.trim()) return;
+        if (currentStep === 2 && !BlogData.thumbnail) return;
         if (currentStep === 3 && (!BlogData.category.trim() || BlogData.tags.length === 0 || !BlogData.authorName.trim())) return;
 
         saveDraft(BlogData);
@@ -91,10 +92,10 @@ const Page = () => {
     console.log(BlogData);
 
     // Disable Next Button if required fields are empty
-    const isNextDisabled =
+    const isNextDisabled = 
         (currentStep === 0 && !BlogData.title.trim()) ||
         (currentStep === 1 && !BlogData.blog.blocks) ||
-        (currentStep === 2 && !BlogData.thumbnail.trim()) ||
+        (currentStep === 2 && !BlogData.thumbnail) ||
         (currentStep === 3 && (!BlogData.category.trim() || BlogData.tags.length === 0 || !BlogData.authorName.trim()));
 
     return (
@@ -103,10 +104,11 @@ const Page = () => {
             <Step steps={steps} currentStep={currentStep} setCurrentStep={setCurrentStep} />
 
             {/* Dynamic Component Rendering */}
-            {currentStep === 0 && <Title setBlogData={setBlogData} />}
-            {currentStep === 1 && <Blog setBlogData={setBlogData} />}
-            {currentStep === 2 && <ThumbnailUploader setBlogData={setBlogData} />}
-            {currentStep === 3 && <Details setBlogData={setBlogData} />}
+            {currentStep === 0 && <Title blogData={BlogData} setBlogData={setBlogData} />}
+            {currentStep === 1 && <Blog blogData={BlogData} setBlogData={setBlogData} />}
+            {currentStep === 2 && <ThumbnailUploader blogData={BlogData} setBlogData={setBlogData} />}
+            {currentStep === 3 && <Details blogData={BlogData} setBlogData={setBlogData} />}
+            {currentStep === 4 && <Publish blogData={BlogData} />}
 
             
             {/* Navigation Buttons */}

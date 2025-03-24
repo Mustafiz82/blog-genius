@@ -13,7 +13,6 @@ import SimpleImage from "@editorjs/simple-image";
 import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
 import Raw from "@editorjs/raw";
-import "../../style/unreset.css"
 
 const EDITOR_TOOLS = {
     code: Code,

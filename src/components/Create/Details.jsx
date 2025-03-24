@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Details({ setBlogData }) {
-  const [author, setAuthor] = useState("");
-  const [category, setCategory] = useState("");
-  const [tags, setTags] = useState([]);
+export default function Details({ blogData, setBlogData }) {
+  const [author, setAuthor] = useState(blogData?.authorName || "");
+  const [category, setCategory] = useState(blogData?.category || "");
+  const [tags, setTags] = useState(blogData?.tags || []);
   const [tagInput, setTagInput] = useState("");
 
   const categories = ["Technology", "Travel", "Food", "Lifestyle", "Business"];
+
+  // Sync state with blogData when it changes
+  useEffect(() => {
+    setAuthor(blogData?.authorName || "");
+    setCategory(blogData?.category || "");
+    setTags(blogData?.tags || []);
+  }, [blogData]);
 
   const handleAddTag = (e) => {
     if (e.key === "Enter" && tagInput.trim() !== "") {
@@ -26,7 +33,7 @@ export default function Details({ setBlogData }) {
   return (
     <div className="p-6 mt-20 bg-white/30 mx-auto rounded-lg">
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Blog Details</h2>
-      
+
       {/* Author Name */}
       <label className="block mb-2 text-gray-600">Author Name</label>
       <input
@@ -73,6 +80,9 @@ export default function Details({ setBlogData }) {
           placeholder="Press Enter to add tags"
         />
       </div>
+
+      {/* Prev Button */}
+    
     </div>
   );
 }

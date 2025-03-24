@@ -1,15 +1,16 @@
 import React from 'react';
 import { HiSparkles } from 'react-icons/hi2';
 
-const Title = ({ setBlogData }) => {
+const Title = ({blogData, setBlogData }) => {
 
     const handleChange = (e) => {
         setBlogData(prev => ({
-            ...prev,
-            title: e.target.value
+          ...prev,  // Preserve other data
+          title: e.target.value  // Update only title
         }));
-    };
+      };
 
+      console.log(blogData);
 
     return (
         <div className="my-20">
@@ -21,8 +22,9 @@ const Title = ({ setBlogData }) => {
                 <input
                     type="text"
                     placeholder="Building the Future: Coding My Way Through Innovation"
+                    value={blogData?.title || ""}
                     className=" w-full focus:outline-0"
-                    onChange={(e) => handleChange(e)}
+                    onChange={handleChange}
                 />
 
 
