@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
 import CheckList from "@editorjs/checklist";
 import Code from "@editorjs/code";
@@ -18,17 +18,9 @@ const EDITOR_TOOLS = {
     code: Code,
     header: {
         class: Header,
-        shortcut: "CMD+H",
-        inlineToolbar: true,
-        config: {
-            placeholder: "Enter a Header",
-            levels: [2, 3, 4],
-            defaultLevel: 2,
-        },
     },
     paragraph: {
         class: Paragraph,
-        // shortcut: 'CMD+P',
         inlineToolbar: true,
     },
     checklist: CheckList,
@@ -39,54 +31,54 @@ const EDITOR_TOOLS = {
     delimiter: Delimiter,
     raw: Raw,
 };
-function Editor({ data, onChange, holder , setBlogData }) {
-    //add a reference to editor
-    const ref = useRef();
-    //initialize editorjs
+
+function Editor({ data, onChange, holder, setBlogData }) {
+    // Reference to the editor instance
+    const ref = useRef(null);
+
     useEffect(() => {
-        //initialize editor if we don't have a reference
+        // Initialize the editor if it's not initialized yet
         if (!ref.current) {
             const editor = new EditorJS({
                 holder: holder,
-                placeholder: "Start writting here..",
+                placeholder: "Start writing here..",
                 tools: EDITOR_TOOLS,
-                data,
+                data, // Initial data passed
                 async onChange(api, event) {
                     const content = await api.saver.save();
-                    console.log("Editor Data:", content);
                     onChange(content);
-                    setBlogData(prev => ({
+                    setBlogData((prev) => ({
                         ...prev,
-                        blog: content
+                        blog: content,
                     }));
-                   
                 },
             });
             ref.current = editor;
         }
 
-        //add a return function handle cleanup
+        // Clean up on unmount
         return () => {
             if (ref.current && ref.current.destroy) {
                 ref.current.destroy();
             }
         };
-    }, []);
+    }, [holder]); // Run only when the holder changes or data changes
+
+    useEffect(() => {
+        if (data) {
+            // Re-render the editor with the new data
+            ref.current?.render(data);
+        }
+    }, [data]); // Re-render the editor when the data prop changes
 
     return (
-        <>
-            <div className="">
-                <div className="w-full max-w-full mx-auto">
-                    <div
-                        id={holder}
-                        className="bg-white  text-black  rounded-lg border border-gray-200 p-6 min-h-[500px] prose prose-lg   "
-                    />
-                </div>
-               
-
+        <div>
+            <div className="w-full max-w-full mx-auto">
+                <div id={holder} className="bg-white text-black rounded-lg border border-gray-200 p-6 min-h-[500px] prose prose-lg" />
             </div>
-        </>
+        </div>
     );
 }
+
 
 export default Editor;

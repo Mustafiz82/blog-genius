@@ -23,6 +23,7 @@
     "@editorjs/raw": "^2.5.1",
     "@editorjs/simple-image": "^1.6.0",
     "@editorjs/table": "^2.4.4",
+    "axios": "^1.8.4",
     "highlight.js": "^11.11.1",
     "next": "15.2.2",
     "prismjs": "^1.30.0",

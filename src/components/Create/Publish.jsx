@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import "prismjs/themes/prism.css"; // Light mode PrismJS theme
 import "../../style/unreset.css"
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { gruvboxLight , duotoneLight , solarizedlight , base16AteliersulphurpoolLight} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { gruvboxLight, duotoneLight, solarizedlight, base16AteliersulphurpoolLight ,  oneLight , materialOceanic } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 // import { detect } from 'lang-detector';
 
@@ -77,7 +77,7 @@ const renderEditorJSContent = (content) => {
                 }, [block.data.code]);
 
                 return (
-                    <SyntaxHighlighter language={language} style={duotoneLight}>
+                    <SyntaxHighlighter language={language} style={materialOceanic}>
                         {block.data.code}
                     </SyntaxHighlighter>
 
@@ -145,6 +145,26 @@ export default function Publish({ blogData: blog }) {
             <Image src={URL.createObjectURL(blog.thumbnail)} width={1000} height={1000} className='w-full h-[400px]' />
             <h1 className='my-5 !text-3xl '>{blog?.title}</h1>
             <div className='space-y-5'>{renderEditorJSContent(blog?.blog?.blocks)}</div>
+
+           <div className="my-5">
+           {blog.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-6">
+                    {blog.tags.map((tag, index) => (
+                        <span
+                            key={index}
+                            className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm"
+                        >
+                            #{tag}
+                        </span>
+                    ))}
+                </div>
+            )}
+           </div>
+
+
+           <div className="border-t pt-4">
+                <p className="text-gray-600">Written by: <strong>{blog.authorName}</strong></p>
+            </div>
         </div>
     );
 }
