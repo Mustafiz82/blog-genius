@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { HiSparkles } from "react-icons/hi2";
 import SparkAnimating from "./sparkAnimating";
 import Spark from "./Spark";
+import EditorJSMarkdownConverter from "@vingeray/editorjs-markdown-converter";
 
 let Editor = dynamic(() => import("@/components/Create/Editor"), {
     ssr: false,
@@ -34,21 +35,14 @@ const Blog = ({ blogData, setBlogData }) => {
             );
 
             const aiContent = response.data.choices[0]?.message?.content;
-
+            console.log(response.data.choices[0]?.message);
             if (aiContent) {
                 setBlogData((prev) => ({
                     ...prev,
-                    blog: markdownToEditorJS(aiContent)
+                    blog: convertToEditorJSFormat(aiContent)
                 }));
                 setContent(aiContent)
 
-
-
-
-                //     console.log(aiContent);
-                //    let  newContent =
-                //     console.log(newContent);
-                //     setContent(aiContent);
             }
         } catch (error) {
             console.error("OpenRouter API error:", error.response?.data || error.message);
@@ -57,192 +51,165 @@ const Blog = ({ blogData, setBlogData }) => {
         }
     };
 
-    function markdownToEditorJS(markdown) {
+
+
+    function convertToEditorJSFormat(content) {
         const blocks = [];
-        const lines = markdown.split("\n");
-    
+        const lines = content.split('\n').filter(line => line.trim() !== '');
         let currentList = [];
-    
+        let currentParagraph = [];
+        let currentTable = null;
+        let inCodeBlock = false;
+        let currentCode = null;
+
+        const cleanText = (text) => {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')  // Bold
+                .replace(/\*(?!\*)(.*?)(?<!\*)\*/g, '<i>$1</i>')  // Italic
+                .replace(/`(.*?)`/g, '<code>$1</code>')  // Inline code
+                .replace(/\*\*\*/g, '')                 // Remove standalone ***
+                .replace(/\*\*/g, '')                   // Remove residual **
+                .replace(/\*/g, '')                     // Remove residual *
+                .trim();
+        };
+
+        const flushParagraph = () => {
+            if (currentParagraph.length > 0) {
+                blocks.push({
+                    type: 'paragraph',
+                    data: { text: cleanText(currentParagraph.join('<br>')) }
+                });
+                currentParagraph = [];
+            }
+        };
+
+        const flushList = () => {
+            if (currentList.length > 0) {
+                blocks.push({
+                    type: 'list',
+                    data: {
+                        style: 'unordered',
+                        items: currentList.map(item => cleanText(item))
+                    }
+                });
+                currentList = [];
+            }
+        };
+
+        const flushTable = () => {
+            if (currentTable && currentTable.rows.length > 0) {
+                blocks.push({
+                    type: 'table',
+                    data: {
+                        withHeadings: true,
+                        content: currentTable.rows
+                    }
+                });
+                currentTable = null;
+            }
+        };
+
         lines.forEach(line => {
-            if (line.startsWith("# ")) {
-                // Heading 1
-                blocks.push({
-                    type: "header",
-                    data: {
-                        text: `**${line.substring(2)}**`,
-                        level: 1
-                    }
-                });
-            } else if (line.startsWith("## ")) {
-                // Heading 2
-                blocks.push({
-                    type: "header",
-                    data: {
-                        text: `**${line.substring(3)}**`,
-                        level: 2
-                    }
-                });
-            } else if (line.startsWith("### ")) {
-                // Heading 3
-                blocks.push({
-                    type: "header",
-                    data: {
-                        text: line.substring(4),
-                        level: 3
-                    }
-                });
-            } else if (line.startsWith("- ") || line.startsWith("1. ")) {
-                // List Item (unordered or ordered)
-                if (currentList.length === 0) {
+            // Handle code blocks
+            if (inCodeBlock) {
+                if (line.trim().startsWith('```')) {
                     blocks.push({
-                        type: "list",
+                        type: 'code',
                         data: {
-                            style: line.startsWith("1.") ? "ordered" : "unordered",
-                            items: []
+                            code: currentCode.content.join('\n'),
+                            language: currentCode.language
                         }
                     });
+                    inCodeBlock = false;
+                    currentCode = null;
+                } else {
+                    currentCode.content.push(line);
                 }
-                blocks[blocks.length - 1].data.items.push(line.substring(2));
-            } else if (line.trim() === "---") {
-                // Horizontal Rule
-                blocks.push({
-                    type: "delimiter",
-                    data: {}
-                });
-            } else if (line.startsWith("**") && line.endsWith("**")) {
-                // Bold Text
-                blocks.push({
-                    type: "paragraph",
-                    data: {
-                        text: `**${line.substring(2, line.length - 2)}**`
-                    }
-                });
-            } else if (line.startsWith("`") && line.endsWith("`")) {
-                // Inline Code
-                blocks.push({
-                    type: "inline-code",
-                    data: {
-                        code: line.substring(1, line.length - 1)
-                    }
-                });
-            } else if (line.startsWith("```")) {
-                // Code Block
-                const code = [];
-                let i = lines.indexOf(line);
-                while (i + 1 < lines.length && !lines[i + 1].startsWith("```")) {
-                    code.push(lines[i + 1]);
-                    i++;
-                }
-                blocks.push({
-                    type: "code",
-                    data: {
-                        code: code.join("\n")
-                    }
-                });
-            } else if (line.startsWith("> ")) {
-                // Quote
-                blocks.push({
-                    type: "quote",
-                    data: {
-                        text: line.substring(2),
-                        caption: ""
-                    }
-                });
-            } else if (line.startsWith("![") && line.includes("](")) {
-                // Image
-                const url = line.match(/\((.*?)\)/)[1];
-                const altText = line.match(/\[(.*?)\]/)[1];
-                blocks.push({
-                    type: "image",
-                    data: {
-                        file: {
-                            url: url
-                        },
-                        caption: altText,
-                        stretched: false,
-                        withBorder: false,
-                        withBackground: false
-                    }
-                });
-            } else if (line.trim()) {
-                // Paragraph (including text with bold)
-                let formattedText = line;
-                // Bold Text Handling (example: **bold**)
-                formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '**$1**');
-    
-                blocks.push({
-                    type: "paragraph",
-                    data: {
-                        text: formattedText
-                    }
-                });
+                return;
             }
+
+            const codeBlockStart = line.match(/^```(\w*)/);
+            if (codeBlockStart) {
+                inCodeBlock = true;
+                currentCode = {
+                    language: codeBlockStart[1] || '',
+                    content: []
+                };
+                return;
+            }
+
+            // Handle tables
+            if (line.trim().startsWith('|')) {
+                if (!currentTable) currentTable = { rows: [] };
+
+                const cells = line.split('|')
+                    .map(cell => cell.trim())
+                    .filter(cell => cell !== '');
+
+                if (cells.every(cell => /^-+$/.test(cell))) return;
+
+                currentTable.rows.push(cells.map(cell => cleanText(cell)));
+                return;
+            } else if (currentTable) {
+                flushTable();
+            }
+
+            // Handle headers
+            const headerMatch = line.match(/^(#+)\s(.*)/);
+            if (headerMatch) {
+                flushParagraph();
+                flushList();
+                blocks.push({
+                    type: 'header',
+                    data: {
+                        text: cleanText(headerMatch[2]),
+                        level: Math.min(headerMatch[1].length, 6)
+                    }
+                });
+                return;
+            }
+
+            // Handle horizontal rules
+            const trimmedLine = line.trim();
+            const hrContent = trimmedLine.replace(/\s+/g, '');
+            if (/^[-*_]{3,}$/.test(hrContent)) {
+                flushParagraph();
+                flushList();
+                blocks.push({ type: 'delimiter', data: {} });
+                return;
+            }
+
+            // Handle list items
+            if (line.startsWith('- ')) {
+                flushParagraph();
+                currentList.push(line.replace(/^- /, ''));
+                return;
+            }
+
+            // Handle empty lines
+            if (trimmedLine === '') {
+                flushParagraph();
+                flushList();
+                return;
+            }
+
+            // Handle regular text
+            currentParagraph.push(line);
         });
-    
-        // Return the final structure with time
+
+        // Final flushes
+        flushParagraph();
+        flushList();
+        flushTable();
+
         return {
-            time: new Date().toISOString(),
-            blocks: blocks
+            time: Date.now(),
+            blocks,
+            version: '2.25.0'
         };
     }
-    
-    
-    // const dummyData = {
-    //     time: new Date().toISOString(), 
-    //     blocks: [
-    //         {
-    //             type: "header",
-    //             data: {
-    //                 text: "**Exploring \"shfdshfds\": A Deep Dive into Its Meaning and Significance**",
-    //                 level: 1,
-    //             },
-    //         },
-    //         {
-    //             type: "header",
-    //             data: {
-    //                 text: "**Introduction**",
-    //                 level: 2,
-    //             },
-    //         },
-    //         {
-    //             type: "paragraph",
-    //             data: {
-    //                 text: "Have you ever come across the term **\"shfdshfds\"** and wondered what it means? At first glance, it appears to be a random string of letters, but could there be more to it? In this blog post, we’ll explore the possible origins, interpretations, and cultural significance of \"shfdshfds.\"",
-    //             },
-    //         },
-           
-    //     ]
-    // }
 
 
-    const dummyData = {
-        "time": "2025-03-26T15:49:50.833Z",
-        "blocks": [
-            {
-                "type": "header",
-                "data": {
-                    "text": "****The Letter \"D\": A Deep Dive into Its History, Usage, and Significance**  **",
-                    "level": 1
-                }
-            },
-            {
-                "type": "header",
-                "data": {
-                    "text": "****Introduction**  **",
-                    "level": 2
-                }
-            },
-            
-            {
-                "type": "paragraph",
-                "data": {
-                    "text": "Would you like any additional sections or refinements? 😊"
-                }
-            }
-        ]
-    }
-   
-    
 
 
 
@@ -264,7 +231,7 @@ const Blog = ({ blogData, setBlogData }) => {
                 </div>
             </div>
 
-            <Editor data={blogData?.blog} newData={dummyData} blogData={blogData} onChange={setContent}  holder="editor_create" setBlogData={setBlogData} />
+            <Editor data={blogData?.blog} newData={dummyData} blogData={blogData} onChange={setContent} holder="editor_create" setBlogData={setBlogData} />
         </div>
     );
 };

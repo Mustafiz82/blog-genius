@@ -1,170 +1,206 @@
-"use client"
+"use client";
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import "prismjs/themes/prism.css"; // Light mode PrismJS theme
-import "../../style/unreset.css"
+import "prismjs/themes/prism.css";
+import "../../style/unreset.css";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { gruvboxLight, duotoneLight, solarizedlight, base16AteliersulphurpoolLight ,  oneLight , materialOceanic } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneLight, materialOceanic } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-// import { detect } from 'lang-detector';
+const CodeBlock = ({ code, language: initialLanguage }) => {
+  const [language, setLanguage] = useState(initialLanguage || 'javascript');
 
+  useEffect(() => {
+    const detectLanguage = () => {
+      if (!code) return 'javascript';
+      if (/<\w+/.test(code)) return 'html';
+      if (/function\s+\w+\s*\(|const\s+\w+\s*=|let\s+\w+\s*=/.test(code)) return 'javascript';
+      if (/class\s+\w+|public\s+class/.test(code)) return 'java';
+      if (/def\s+\w+|import\s+\w+/.test(code)) return 'python';
+      if (/<\?php|\$[a-zA-Z_]/.test(code)) return 'php';
+      return 'javascript';
+    };
+
+    setLanguage(detectLanguage());
+  }, [code]);
+
+  return (
+    <SyntaxHighlighter 
+      language={language} 
+      style={oneLight}
+      showLineNumbers
+      wrapLines
+      className="rounded-lg my-4"
+    >
+      {code}
+    </SyntaxHighlighter>
+  );
+};
 
 const renderEditorJSContent = (content) => {
+  if (!content || !Array.isArray(content)) return null;
 
+  return content.map((block, index) => {
+    const blockKey = block.id || `block-${index}`;
 
-    return content?.map((block) => {
-        switch (block?.type) {
-            case 'paragraph':
-                return <p key={block.id}>{block.data.text}</p>;
+    switch (block?.type) {
+      case 'paragraph':
+        return (
+          <p 
+            key={blockKey} 
+            className="mb-4 text-gray-700"
+            dangerouslySetInnerHTML={{ __html: block.data.text }}
+          />
+        );
 
-            case 'header':
-                const HeaderTag = `h${block.data.level}`; // Dynamically create h1, h2, h3, etc.
-                return <HeaderTag key={block.id}>{block.data.text}</HeaderTag>;
+      case 'header':
+        const HeaderTag = `h${Math.min(block.data.level, 6)}`;
+        return (
+          <HeaderTag 
+            key={blockKey}
+            className={`my-6 font-bold ${block.data.level === 1 ? 'text-3xl' : 'text-xl'}`}
+            dangerouslySetInnerHTML={{ __html: block.data.text}}
+          />
+        );
 
-            case 'list':
-                if (block.data.style === 'unordered') {
-                    return (
-                        <ul className='list-disc pl-6 ' key={block.id}>
-                            {block?.data?.items?.map((item, idx) => (
-                                <li key={idx}>{item.content}</li>
-                            ))}
-                        </ul>
-                    );
-                } else {
-                    return (
-                        <ol className='list-decimal pl-6' key={block.id}>
-                            {block.data.items.map((item, idx) => (
-                                <li key={idx}>{item.content}</li>
-                            ))}
-                        </ol>
-                    );
-                }
+      case 'list':
+        const ListTag = block.data.style === 'ordered' ? 'ol' : 'ul';
+        return (
+          <ListTag
+            key={blockKey}
+            className={`mb-4 pl-6 ${block.data.style === 'ordered' ? 'list-decimal' : 'list-disc'}`}
+          >
+            {block.data.items.map((item, idx) => (
+              <li 
+                key={`${blockKey}-${idx}`}
+                className="mb-2"
+                dangerouslySetInnerHTML={{ __html: item }}
+              />
+            ))}
+          </ListTag>
+        );
 
-            case 'quote':
-                return (
-                    <blockquote
-                        key={block.id}
-                        className="border-l-4 border-gray-400 bg-gray-50 text-gray-800 italic px-4 py-3 rounded-lg shadow-sm"
-                    >
-                        <p className="text-lg">{block.data.text}</p>
-                        <footer className="mt-2 text-sm text-gray-600">— {block.data.caption}</footer>
-                    </blockquote>
+      case 'quote':
+        return (
+          <blockquote
+            key={blockKey}
+            className="my-6 border-l-4 border-blue-400 bg-blue-50 text-blue-800 italic px-4 py-3 rounded-lg"
+          >
+            <p className="text-lg" dangerouslySetInnerHTML={{ __html: block.data.text }} />
+            {block.data.caption && (
+              <footer className="mt-2 text-sm text-blue-600">
+                — {block.data.caption}
+              </footer>
+            )}
+          </blockquote>
+        );
 
-                );
+      case 'delimiter':
+        return <hr key={blockKey} className="my-8 border-t-2 border-gray-200" />;
 
-            case 'delimiter':
-                return <hr key={block.id} />;
+      case 'code':
+        return <CodeBlock key={blockKey} code={block.data.code} language={block.data.language} />;
 
-            case 'code':
-                const [language, setLanguage] = useState('javascript'); // Default language
+      case 'checklist':
+        return (
+          <ul key={blockKey} className="my-4 space-y-2">
+            {block.data.items.map((item, idx) => (
+              <li 
+                key={`${blockKey}-${idx}`} 
+                className="flex items-center space-x-3 bg-gray-50 px-4 py-2 rounded-lg border border-gray-200"
+              >
+                <input
+                  type="checkbox"
+                  checked={item.checked}
+                  readOnly
+                  className="h-5 w-5 text-blue-500"
+                />
+                <span 
+                  className={`text-gray-800 ${item.checked ? 'line-through text-gray-500' : ''}`}
+                  dangerouslySetInnerHTML={{ __html: item.text }}
+                />
+              </li>
+            ))}
+          </ul>
+        );
 
-                useEffect(() => {
-                    // Example of very basic language detection (based on code patterns)
-                    const code = block.data.code;
+      case 'table':
+        return (
+          <div key={blockKey} className="my-6 overflow-x-auto">
+            <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
+              <thead className="bg-gray-50 text-gray-700">
+                <tr>
+                  {block.data.content[0]?.map((cell, idx) => (
+                    <th 
+                      key={`${blockKey}-th-${idx}`}
+                      className="px-4 py-3 border-b border-gray-200 text-left font-semibold text-sm"
+                      dangerouslySetInnerHTML={{ __html: cell }}
+                    />
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {block.data.content.slice(1)?.map((row, rowIdx) => (
+                  <tr 
+                    key={`${blockKey}-tr-${rowIdx}`} 
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    {row.map((cell, cellIdx) => (
+                      <td 
+                        key={`${blockKey}-td-${rowIdx}-${cellIdx}`}
+                        className="px-4 py-3 border-b border-gray-200 text-gray-700 text-sm"
+                        dangerouslySetInnerHTML={{ __html: cell }}
+                      />
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
 
-                    // Basic regex for detecting languages (you can expand this)
-                    if (/function\s+\w+\s*\(/.test(code)) {
-                        setLanguage('javascript');  // Looks like JavaScript
-                    } else if (/class\s+\w+/.test(code)) {
-                        setLanguage('java');  // Looks like Java (class declaration)
-                    } else if (/^\s*#/.test(code)) {
-                        setLanguage('python');  // Looks like Python (using "#")
-                    } else if (/^\s*public\s+class/.test(code)) {
-                        setLanguage('java');  // Looks like Java (public class)
-                    } else {
-                        setLanguage('javascript'); // Fallback to JavaScript
-                    }
-                }, [block.data.code]);
-
-                return (
-                    <SyntaxHighlighter language={language} style={materialOceanic}>
-                        {block.data.code}
-                    </SyntaxHighlighter>
-
-
-                );
-
-            case 'checklist':
-                return (
-                    <ul key={block.id} className="space-y-2">
-                        {block.data.items.map((item, idx) => (
-                            <li key={idx} className="flex items-center space-x-3 bg-gray-50 px-4 py-2 rounded-lg shadow-sm border border-gray-300">
-                                <input
-                                    type="checkbox"
-                                    checked={item.checked}
-                                    readOnly
-                                    className="h-5 w-5 text-blue-500 accent-blue-500 cursor-pointer"
-                                />
-                                <span className={`text-gray-800 ${item.checked ? " text-gray-500" : ""}`}>
-                                    {item.text}
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
-
-                );
-
-            case 'table':
-                return (
-                    <table className="w-full border border-gray-300 shadow-md rounded-lg overflow-hidden">
-                        <thead className="bg-gray-100 text-gray-700">
-                            <tr>
-                                {block.data.content[0].map((cell, idx) => (
-                                    <th key={idx} className="px-4 py-2 border-b border-gray-300 text-left font-semibold">
-                                        {cell}
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            {block.data.content.slice(1).map((row, idx) => (
-                                <tr key={idx} className="hover:bg-gray-50 transition">
-                                    {row.map((cell, idx) => (
-                                        <td key={idx} className="px-4 py-2 border-b border-gray-200 text-gray-700">
-                                            {cell}
-                                        </td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-
-                );
-
-            default:
-                return null;
-        }
-    });
+      default:
+        console.warn(`Unhandled block type: ${block.type}`);
+        return null;
+    }
+  });
 };
 
 export default function Publish({ blogData: blog }) {
+  return (
+    <div className='w-full bg-white/70 my-8 md:my-20 p-4 md:p-8 max-w-4xl mx-auto'>
+      <div className="relative w-full aspect-video mb-8">
+        <Image 
+          src={URL.createObjectURL(blog.thumbnail)}
+          alt={blog.title}
+          fill
+          className="rounded-lg object-cover"
+        />
+      </div>
+      
+      <h1 className='mb-6 text-3xl md:text-4xl font-bold text-gray-900'>{blog?.title}</h1>
+      
+      <div className='prose max-w-none'>
+        {renderEditorJSContent(blog?.blog?.blocks)}
+      </div>
 
-    console.log(blog);
-    return (
-        <div className='w-full bg-white/70 my-20 p-5 '>
-            <Image src={URL.createObjectURL(blog.thumbnail)} width={1000} height={1000} className='w-full h-[400px]' />
-            <h1 className='my-5 !text-3xl '>{blog?.title}</h1>
-            <div className='space-y-5'>{renderEditorJSContent(blog?.blog?.blocks)}</div>
-
-           <div className="my-5">
-           {blog.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-6">
-                    {blog.tags.map((tag, index) => (
-                        <span
-                            key={index}
-                            className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm"
-                        >
-                            #{tag}
-                        </span>
-                    ))}
-                </div>
-            )}
-           </div>
-
-
-           <div className="border-t pt-4">
-                <p className="text-gray-600">Written by: <strong>{blog.authorName}</strong></p>
-            </div>
+      {blog.tags?.length > 0 && (
+        <div className="mt-8 flex flex-wrap gap-2">
+          {blog.tags.map((tag, index) => (
+            <span
+              key={index}
+              className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium"
+            >
+              #{tag}
+            </span>
+          ))}
         </div>
-    );
+      )}
+
+      <div className="mt-8 pt-4 border-t border-gray-200">
+        <p className="text-gray-600">
+          Written by: <span className="font-semibold text-gray-800">{blog.authorName}</span>
+        </p>
+      </div>
+    </div>
+  );
 }
