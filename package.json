@@ -33,6 +33,7 @@
     "react-editor-js": "^1.10.0",
     "react-icons": "^5.5.0",
     "react-syntax-highlighter": "^15.6.1",
+    "replicate": "^1.0.1",
     "slate": "^0.112.0",
     "slate-history": "^0.110.3",
     "slate-hyperscript": "^0.100.0",

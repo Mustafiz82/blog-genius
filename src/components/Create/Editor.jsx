@@ -32,7 +32,7 @@ const EDITOR_TOOLS = {
     raw: Raw,
 };
 
-function Editor({ data, onChange, holder, setBlogData }) {
+function Editor({ data, onChange, holder, setBlogData , aiContent }) {
     // Reference to the editor instance
     const ref = useRef(null);
 
@@ -64,12 +64,12 @@ function Editor({ data, onChange, holder, setBlogData }) {
         };
     }, [holder]); // Run only when the holder changes or data changes
 
-    useEffect(() => {
+    useEffect(() => {   
         if (data) {
             // Re-render the editor with the new data
             ref.current?.render(data);
         }
-    }, [data]); // Re-render the editor when the data prop changes
+    }, [aiContent]); // Re-render the editor when the data prop changes
 
     return (
         <div>

@@ -11,22 +11,12 @@ const Page = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
-        { id: 1, label: "Title" },
-        { id: 2, label: "Blog" },
-        { id: 3, label: "Thumbnail" },
-        { id: 4, label: "Details" },
-        { id: 5, label: "Publish" },
+        { id: 1, label: "Title" }, { id: 2, label: "Blog" }, { id: 3, label: "Thumbnail" }, { id: 4, label: "Details" }, { id: 5, label: "Publish" },
     ];
 
     // Default blog structure
     const Output = {
-        id: null,
-        title: "",
-        blog: "",
-        thumbnail: "",
-        category: "",
-        tags: [],
-        authorName: ""
+        id: null, title: "", blog: "", thumbnail: "", category: "", tags: [], authorName: ""
     };
 
     // State for blog data
@@ -92,7 +82,7 @@ const Page = () => {
     console.log(BlogData);
 
     // Disable Next Button if required fields are empty
-    const isNextDisabled = 
+    const isNextDisabled =
         (currentStep === 0 && !BlogData.title.trim()) ||
         (currentStep === 1 && !BlogData.blog.blocks) ||
         (currentStep === 2 && !BlogData.thumbnail) ||
@@ -105,12 +95,15 @@ const Page = () => {
 
             {/* Dynamic Component Rendering */}
             {currentStep === 0 && <Title blogData={BlogData} setBlogData={setBlogData} />}
-            {currentStep === 1 && <Blog blogData={BlogData} setBlogData={setBlogData} />}
+
+            <div style={{ display: currentStep === 1 ? "block" : "none" }}>
+                <Blog blogData={BlogData} setBlogData={setBlogData} />
+            </div>
             {currentStep === 2 && <ThumbnailUploader blogData={BlogData} setBlogData={setBlogData} />}
             {currentStep === 3 && <Details blogData={BlogData} setBlogData={setBlogData} />}
             {currentStep === 4 && <Publish blogData={BlogData} />}
 
-            
+
             {/* Navigation Buttons */}
             <div className="mt-10 space-x-3 flex justify-end">
                 <button className="px-4 py-2 bg-primary text-white rounded-sm" onClick={handlePrev} disabled={currentStep === 0}>
