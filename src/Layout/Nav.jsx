@@ -8,6 +8,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
+import { usePathname } from 'next/navigation';
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,17 +25,20 @@ const Nav = () => {
         { title: "Contact", link: "#" },
     ];
 
+    const pathname = usePathname();
+    const isAuthPage = pathname === "/login" || pathname === "/signup"
+
     return (
-        <div className="relative">
+        <div hidden={isAuthPage} className="relative">
             <div className='py-4 shadow-sm flex justify-between items-center 2xl:text-lg bg-white px-5 w-full'>
                 <h2 className='!text-2xl !font-semibold uppercase'>
-                    <span className='text-primary'>Blog </span> Genius Ai 
+                    <span className='text-primary'>Blog </span> Genius Ai
                 </h2>
 
                 <div className='flex gap-5 items-center'>
                     <ul className='flex font-light z-[999] gap-5 relative'>
                         {route.map((item, idx) => (
-                            <li key={idx} className="relative group" 
+                            <li key={idx} className="relative group"
                                 onMouseEnter={() => setDropdownOpen(idx)}
                                 onMouseLeave={() => setDropdownOpen(null)}>
                                 <Link href={item.link || "#"} className="flex items-center gap-1 relative">
@@ -44,7 +48,7 @@ const Nav = () => {
                                     )}
                                 </Link>
                                 {item.subcategories && (
-                                    <ul 
+                                    <ul
                                         className={`absolute left-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300 
                                         ${dropdownOpen === idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"}`}
                                     >
@@ -63,9 +67,10 @@ const Nav = () => {
                         <CiSearch onClick={() => setIsOpen(true)} className='text-3xl cursor-pointer' />
                     </div>
 
-                    <button className='hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md'>
-                        Login
-                    </button>
+                    <Link href={"/login"}>
+                        <button className='hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md'>
+                            Login
+                        </button></Link>
                 </div>
             </div>
 

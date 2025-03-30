@@ -1,9 +1,13 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+      const pathname = usePathname();
+      const isAuthPage = pathname === "/login" || pathname === "/signup"
   return (
-    <footer className="bg-white border-t border-purple-300 py-16 text-center">
+    <footer hidden={isAuthPage} className="bg-white border-t border-purple-300 py-16 text-center">
       <div className="container mx-auto">
         <div className="flex flex-col items-center">
           {/* <Image
