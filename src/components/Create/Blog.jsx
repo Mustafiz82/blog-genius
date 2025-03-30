@@ -18,7 +18,7 @@ const Blog = ({ blogData, setBlogData  }) => {
     const handleGenerateBlog = async () => {
         setLoading(true);
 
-        const OPENROUTER_API_KEY = "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"; const messages = [{ role: "user", content: `Write a detailed blog on "${blogData?.title}"` }];
+        const OPENROUTER_API_KEY = "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"; const messages = [{ role: "user", content: `Write a detailed blog on "${blogData?.title}" . don't include title on first ` }];
 
         try {
             const response = await axios.post(
@@ -55,7 +55,7 @@ const Blog = ({ blogData, setBlogData  }) => {
 
 
     return (
-        <div className="py-5 px-5 my-16 mb-5 bg-white/70 rounded-lg">
+        <div className="py-5 shadow-sm px-5 my-16 mb-5 bg-white/50 rounded-lg">
             <div className="flex justify-between items-center">
 
                 {loading ? (

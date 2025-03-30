@@ -14,7 +14,7 @@ const Nav = () => {
     const [dropdownOpen, setDropdownOpen] = useState(null);
 
     const route = [
-        { title: "Blog", link: "#" },
+        { title: "Blog", link: "/blogs" },
         {
             title: "Categories", subcategories: [
                 "Tech", "Travel", "Lifestyle", "Food", "Gadgets"
@@ -32,7 +32,7 @@ const Nav = () => {
                 </h2>
 
                 <div className='flex gap-5 items-center'>
-                    <ul className='flex font-light gap-5 relative'>
+                    <ul className='flex font-light z-[999] gap-5 relative'>
                         {route.map((item, idx) => (
                             <li key={idx} className="relative group" 
                                 onMouseEnter={() => setDropdownOpen(idx)}

@@ -40,14 +40,14 @@ export default function Categories() {
                 {sliders.map((slide, idx) => (
                     <div
                     key={idx}
-                    className="relative group overflow-hidden h-[400px] rounded-3xl bg-gray-500 duration-500 ease-in-out w-[20%] hover:w-[300px] md:hover:w-[25%]"
+                    className="relative group overflow-hidden h-[400px] rounded-2xl bg-gray-500 duration-500 ease-in-out w-[20%] hover:w-[300px] md:hover:w-[25%]"
                 >
                     {/* Dark Overlay */}
                     <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
                 
                     {/* Image */}
                     <div className='h-full flex justify-center overflow-hidden'>
-                        <img width={640} height={540} className="h-full image rounded-3xl" src={slide.img} alt="accordion navigate ui" />
+                        <img width={640} height={540} className="h-full image rounded-2xl" src={slide.img} alt="accordion navigate ui" />
                     </div>
                 
                     {/* Title Text */}

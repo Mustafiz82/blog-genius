@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       > <Nav/>
-         <div className="gradient-bg">
+         <div className="bg-[#F5F5F5]">
          {children}
          </div>
         <Footer/>
