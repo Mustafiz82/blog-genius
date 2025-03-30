@@ -55,7 +55,7 @@ const Blog = ({ blogData, setBlogData  }) => {
 
 
     return (
-        <div className="py-5 px-5 my-16 mb-5 bg-white/50 rounded-lg">
+        <div className="py-5 px-5 my-16 mb-5 bg-white/70 rounded-lg">
             <div className="flex justify-between items-center">
 
                 {loading ? (
