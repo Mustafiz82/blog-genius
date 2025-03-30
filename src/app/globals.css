@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FFFFFF;
+  --background: #ffffff;
   --foreground: #171717;
   --width: 12px;
   --height: 12px;
   /* --primary: #db556d; */
-  --primary: #8E67E6;
+  --primary: #8e67e6;
   --body: #f1f3f6;
   --borderRadius: 50%;
 }
@@ -53,8 +53,8 @@ body {
   background-image: linear-gradient(
     90deg,
     #dce9f8 0%,
-    /* Very Light Blue */ #e9ddf3 50%,
-    /* Very Light Purple */ #fbe4ec 100% /* Very Light Pink */
+    #e9ddf3 50%,
+    #fbe4ec 100%
   );
 }
 
@@ -70,7 +70,7 @@ body {
   width: 0vw;
   height: 12px;
   animation: 0.6s linear increase-step forwards;
-  background-color: #8E67E6;
+  background-color: #8e67e6;
 }
 
 .step-line-reverse {
@@ -81,7 +81,7 @@ body {
 
   left: -15.5vw;
   animation: 0.6s linear decrease-step;
-  background-color: #8E67E6;
+  background-color: #8e67e6;
 }
 
 @keyframes increase-step {
@@ -102,9 +102,6 @@ body {
   }
 }
 
-
-
-
 h1 {
   @apply text-2xl font-bold;
 }
@@ -114,11 +111,6 @@ h2 {
 h3 {
   @apply text-lg font-medium;
 }
-
-
-
-
-
 
 .sparkle-container {
   position: relative;
@@ -168,31 +160,57 @@ h3 {
 }
 
 @keyframes gradientWave {
-  0% { stop-color: #ff00ff; }
-  25% { stop-color: #8000ff; }
-  50% { stop-color: #0080ff; }
-  75% { stop-color: #8000ff; }
-  100% { stop-color: #ff00ff; }
+  0% {
+    stop-color: #ff00ff;
+  }
+  25% {
+    stop-color: #8000ff;
+  }
+  50% {
+    stop-color: #0080ff;
+  }
+  75% {
+    stop-color: #8000ff;
+  }
+  100% {
+    stop-color: #ff00ff;
+  }
 }
 
 @keyframes smokeEffect {
-  0% { transform: scale(1) rotate(0deg); }
-  100% { transform: scale(1.1) rotate(5deg); }
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1.1) rotate(5deg);
+  }
 }
 
 @keyframes pulseMain {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.05); }
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
 }
 
 @keyframes pulseMedium {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.1) translate(5px, -5px); }
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(5px, -5px);
+  }
 }
 
 @keyframes pulseSmall {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.15) translate(-5px, 5px); }
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.15) translate(-5px, 5px);
+  }
 }
 
 .gradient-stop-1 {
@@ -200,17 +218,12 @@ h3 {
 }
 
 .gradient-stop-2 {
-  animation: gradientWave 3s ease-in-out infinite ;
+  animation: gradientWave 3s ease-in-out infinite;
 }
 
 .gradient-stop-3 {
   animation: gradientWave 3s ease-in-out infinite 2s;
 }
-
-
-
-
-
 
 .sparkle-off {
   position: absolute;
@@ -242,7 +255,6 @@ h3 {
   /* animation: pulseSmall 3s infinite alternate; */
 }
 
-
 .gradient-stop-1 {
   /* animation: gradientWave 3s ease-in-out infinite; */
 }
@@ -254,4 +266,3 @@ h3 {
 .gradient-stop-3 {
   /* animation: gradientWave 3s ease-in-out infinite 2s; */
 }
-

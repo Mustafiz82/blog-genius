@@ -9,10 +9,12 @@ import { IoCloseOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(null);
+    const [userDropdownOpen, setUserDropdownOpen] = useState(false); // Dropdown for logged-in user
 
     const route = [
         { title: "Blog", link: "/blogs" },
@@ -27,6 +29,14 @@ const Nav = () => {
 
     const pathname = usePathname();
     const isAuthPage = pathname === "/login" || pathname === "/signup"
+    const { data:session, status} = useSession()
+
+    console.log(session);
+
+    const handleLogout = () => {
+        signOut();
+        setUserDropdownOpen(false);
+    };
 
     return (
         <div hidden={isAuthPage} className="relative">
@@ -50,7 +60,7 @@ const Nav = () => {
                                 {item.subcategories && (
                                     <ul
                                         className={`absolute left-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300 
-                                        ${dropdownOpen === idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"}`}
+                                         ${dropdownOpen === idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"}`}
                                     >
                                         {item.subcategories.map((sub, subIdx) => (
                                             <li key={subIdx} className="px-4 py-2 hover:bg-gray-100">
@@ -67,10 +77,46 @@ const Nav = () => {
                         <CiSearch onClick={() => setIsOpen(true)} className='text-3xl cursor-pointer' />
                     </div>
 
-                    <Link href={"/login"}>
-                        <button className='hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md'>
-                            Login
-                        </button></Link>
+                    <div>
+                        {status === "loading" ? (
+                            <button className="px-8 py-3 bg-gray-400 text-white font-semibold rounded-md cursor-not-allowed">
+                                Loading...
+                            </button>
+                        ) : session ? (
+                            <div className="relative">
+                                <button
+                                    onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                                    className="hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md flex items-center gap-2"
+                                >
+                                    <Image src={session?.user?.image} alt='profile' width={1000} height={1000} className='rounded-full w-8 h-8' />
+                                    {session?.user?.name?.split(" ")[0]}
+                                    <IoIosArrowDown className={`text-lg transition-transform duration-300 ${userDropdownOpen ? "rotate-180" : "rotate-0"}`} />
+                                </button>
+                                {userDropdownOpen && (
+                                    <ul className="absolute right-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300">
+                                        <li className="px-4 py-2 hover:bg-gray-100">
+                                            <Link href="/write-blog">Write Blog</Link>
+                                        </li>
+                                        <li className="px-4 py-2 hover:bg-gray-100">
+                                            <Link href="/my-blogs">My Blogs</Link>
+                                        </li>
+                                        <li className="px-4 py-2 hover:bg-gray-100">
+                                            <Link href="/drafts">Drafts</Link>
+                                        </li>
+                                        <li className="px-4 py-2 hover:bg-gray-100">
+                                            <button onClick={handleLogout}>Logout</button>
+                                        </li>
+                                    </ul>
+                                )}
+                            </div>
+                        ) : (
+                            <Link href={"/login"}>
+                                <button className="hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md">
+                                    Login
+                                </button>
+                            </Link>
+                        )}
+                    </div>
                 </div>
             </div>
 
