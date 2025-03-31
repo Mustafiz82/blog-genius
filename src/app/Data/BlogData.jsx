@@ -5,7 +5,7 @@ export const blogs = [
       author: "John Doe",
       date: "March 5, 2025",
       tags: ["travel", "adventure"],
-      description: "Embark on a journey to uncover the world's best-kept secrets. From secluded beaches to ancient ruins, explore the extraordinary destinations that most travelers miss.",
+      description: "Embark on a journey to uncover the world's best-kept secrets. From secluded beaches to ancient ruins, explore the extraordinary destinations that most travelers miss.Embark on a journey to uncover the world's best-kept secrets. From secluded beaches to ancient ruins, explore the extraordinary destinations that most travelers missEmbark on a journey to uncover the world's best-kept secrets. From secluded beaches to ancient ruins, explore the extraordinary destinations that most travelers miss",
       category: "Travel" // Added category
     },
     {
@@ -26,4 +26,6 @@ export const blogs = [
       description: "Discover how traveling can expand your horizons and provide invaluable life lessons. Experience firsthand the diverse cultures, histories, and perspectives that shape our world.",
       category: "Education" // Added category
     },
+
+    
   ];

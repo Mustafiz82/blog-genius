@@ -17,7 +17,7 @@ const CategoryList = () => {
                 {categories.map((category) => (
                     <div key={category.name} className="flex items-center justify-between">
                         <div className="flex items-center">
-                            <span className="text-red-500 mr-2">•</span>
+                            <span className="text-primary mr-2">•</span>
                             <span className="text-gray-800">{category.name}</span>
                         </div>
                         <span className="text-gray-500">({category.count})</span>

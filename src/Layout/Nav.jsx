@@ -29,7 +29,7 @@ const Nav = () => {
 
     const pathname = usePathname();
     const isAuthPage = pathname === "/login" || pathname === "/signup"
-    const { data:session, status} = useSession()
+    const { data: session, status } = useSession()
 
     console.log(session);
 
@@ -59,13 +59,15 @@ const Nav = () => {
                                 </Link>
                                 {item.subcategories && (
                                     <ul
-                                        className={`absolute left-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300 
+                                        className={`absolute left-0  bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300 
                                          ${dropdownOpen === idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"}`}
                                     >
                                         {item.subcategories.map((sub, subIdx) => (
-                                            <li key={subIdx} className="px-4 py-2 hover:bg-gray-100">
-                                                <Link href="#">{sub}</Link>
-                                            </li>
+                                            <Link key={subIdx} href={`/blogs/${sub}`}>
+                                                <li  className="px-4 py-2 hover:bg-gray-100">
+                                                    {sub}
+                                                </li>
+                                            </Link>
                                         ))}
                                     </ul>
                                 )}
@@ -95,7 +97,7 @@ const Nav = () => {
                                 {userDropdownOpen && (
                                     <ul className="absolute z-[999] right-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300">
                                         <li className="px-4 py-2 hover:bg-gray-100">
-                                            <Link href="/write-blog">Write Blog</Link>
+                                            <Link href="/create">Write Blog</Link>
                                         </li>
                                         <li className="px-4 py-2 hover:bg-gray-100">
                                             <Link href="/my-blogs">My Blogs</Link>

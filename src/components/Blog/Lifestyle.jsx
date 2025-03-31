@@ -2,14 +2,12 @@ import React from 'react';
 import VerticalCard from './VerticalCard';
 import { blogs } from '@/app/Data/BlogData';
 import Image from 'next/image';
+import CategoryTitle from '../common/CategoryTitle';
 
 const Lifestyle = () => {
     return (
         <div>
-            <div className='flex mt-14  justify-between items-center'>
-                <h2 className='text-xl duration-300 font-semibold hover:text-primary  leading-0'>LifeStyle</h2>
-                <span className='text-sm cursor-pointer font duration-300 text-black/70 hover:text-primary'>View More</span>
-            </div>
+             <CategoryTitle title={"lifestyle"} />
 
             <div className="grid mt-5 gap-5 grid-cols-2">
                 <VerticalCard item={blogs?.[0]} />

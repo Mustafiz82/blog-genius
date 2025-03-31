@@ -2,14 +2,12 @@ import { blogs } from '@/app/Data/BlogData';
 import React from 'react';
 import VerticalCard from './VerticalCard';
 import Image from 'next/image';
+import CategoryTitle from '../common/CategoryTitle';
 
 const Business = () => {
     return (
         <div>
-            <div className='flex mt-10  justify-between items-center'>
-                <h2 className='text-xl duration-300 font-semibold hover:text-primary  leading-0'>Business</h2>
-                <span className='text-sm cursor-pointer font duration-300 text-black/70 hover:text-primary'>View More</span>
-            </div>
+             <CategoryTitle title={"business"} />
 
             <div className='mt-5'>
                 {
