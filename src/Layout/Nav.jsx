@@ -93,7 +93,7 @@ const Nav = () => {
                                     <IoIosArrowDown className={`text-lg transition-transform duration-300 ${userDropdownOpen ? "rotate-180" : "rotate-0"}`} />
                                 </button>
                                 {userDropdownOpen && (
-                                    <ul className="absolute right-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300">
+                                    <ul className="absolute z-[999] right-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300">
                                         <li className="px-4 py-2 hover:bg-gray-100">
                                             <Link href="/write-blog">Write Blog</Link>
                                         </li>
