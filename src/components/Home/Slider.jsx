@@ -75,7 +75,7 @@ export default function App() {
         }
     ];
 
-    
+
     return (
         <>
             <Swiper
@@ -142,27 +142,18 @@ export default function App() {
                         <div className="absolute text-white flex flex-col justify-center items-center w-full h-full top-0 left-0 bg-black/40">
                             <div className="flex gap-2">
                                 {
-                                    slide.tags.map((item , idx) => <p key={idx}>
-                                         <span  className='text-purple-500'>#</span> {item} 
-                                    </p> )
+                                    slide.tags.map((item, idx) => <p key={idx}>
+                                        <span className='text-purple-500'>#</span> {item}
+                                    </p>)
                                 }
                             </div>
-                            <h2 className="text-4xl border-bottom mt-8 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
-                               {slide?.title}
+                            <h2 className="text-4xl border-bottom mt-2 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
+                                {slide?.title}
                             </h2>
 
-                            <div className="flex gap-3 items-center mt-8">
-                                <Image src={"https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
-                                    width={500}
-                                    height={500}
-                                    className="w-10 h-10 rounded-full"
-                                    alt="profile"
-                                    objectFit="cover"
-
-                                />
-                                <p>by {slide?.author}</p>
-                                <p className="ml-5">{slide?.date}</p>
-                            </div>
+                            <p className="text-sm text-white mb-3">
+                                By Jhon Doe - May 20, 2025
+                            </p>
                         </div>
 
                     </SwiperSlide>

@@ -13,25 +13,13 @@ import { useSession, signOut } from 'next-auth/react';
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(null);
-    const [userDropdownOpen, setUserDropdownOpen] = useState(false); // Dropdown for logged-in user
+    const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
-    const route = [
-        { title: "Blog", link: "/blogs" },
-        {
-            title: "Categories", subcategories: [
-                "Tech", "Travel", "Lifestyle", "Food", "Gadgets"
-            ]
-        },
-        { title: "About", link: "#" },
-        { title: "Contact", link: "#" },
-    ];
+    const subcategories = ["technology", "travel", "lifestyle", "culture", "business"];
 
     const pathname = usePathname();
     const isAuthPage = pathname === "/login" || pathname === "/signup"
     const { data: session, status } = useSession()
-
-    console.log(session);
 
     const handleLogout = () => {
         signOut();
@@ -40,85 +28,71 @@ const Nav = () => {
 
     return (
         <div hidden={isAuthPage} className="relative">
-            <div className='py-4 shadow-sm flex justify-between items-center 2xl:text-lg bg-white px-5 w-full'>
-                <h2 className='!text-2xl !font-semibold uppercase'>
-                    <span className='text-primary'>Blog </span> Genius Ai
-                </h2>
+            <div className='py-4 shadow-sm flex justify-between items-center 2xl:text-lg bg-white px-5 w-full grid grid-cols-3'>
+                {/* Logo Section */}
+                <div>
+                    <h2 className='!text-2xl !font-semibold uppercase'>
+                        <span className='text-primary'>Blog </span> Genius Ai
+                    </h2>
+                </div>
 
-                <div className='flex gap-5 items-center'>
+                {/* Navigation Links */}
+                <div className='flex justify-center'>
                     <ul className='flex font-light z-[999] gap-5 relative'>
-                        {route.map((item, idx) => (
-                            <li key={idx} className="relative group"
-                                onMouseEnter={() => setDropdownOpen(idx)}
-                                onMouseLeave={() => setDropdownOpen(null)}>
-                                <Link href={item.link || "#"} className="flex items-center gap-1 relative">
-                                    {item.title}
-                                    {item.subcategories && (
-                                        <IoIosArrowDown className={`text-lg transition-transform duration-300 ${dropdownOpen === idx ? "rotate-180" : "rotate-0"}`} />
-                                    )}
+                        <li>
+                            <Link href="/blogs">Blogs</Link>
+                        </li>
+                        {subcategories.map((sub, idx) => (
+                            <li className='hover:text-primary duration-300' key={idx}>
+                                <Link href={`/blogs/category/${sub}`} className="capitalize">
+                                    {sub}
                                 </Link>
-                                {item.subcategories && (
-                                    <ul
-                                        className={`absolute left-0  bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300 
-                                         ${dropdownOpen === idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"}`}
-                                    >
-                                        {item.subcategories.map((sub, subIdx) => (
-                                            <Link key={subIdx} href={`/blogs/${sub}`}>
-                                                <li  className="px-4 py-2 hover:bg-gray-100">
-                                                    {sub}
-                                                </li>
-                                            </Link>
-                                        ))}
-                                    </ul>
-                                )}
                             </li>
                         ))}
                     </ul>
+                </div>
 
-                    <div>
-                        <CiSearch onClick={() => setIsOpen(true)} className='text-3xl cursor-pointer' />
-                    </div>
-
-                    <div>
-                        {status === "loading" ? (
-                            <button className="px-8 py-3 bg-gray-400 text-white font-semibold rounded-md cursor-not-allowed">
-                                Loading...
+                {/* Search and Login/Menu Section */}
+                <div className='flex justify-end gap-5 items-center'>
+                    <CiSearch onClick={() => setIsOpen(true)} className='text-3xl cursor-pointer' />
+                    {status === "loading" ? (
+                        <button className="px-8 py-3 bg-gray-400 text-white font-semibold rounded-md cursor-not-allowed">
+                            Loading...
+                        </button>
+                    ) : session ? (
+                        <div className="relative">
+                            <button
+                                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                                className="hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md flex items-center gap-2"
+                            >
+                                <Image src={session?.user?.image} alt='profile' width={1000} height={1000} className='rounded-full w-8 h-8' />
+                                {session?.user?.name?.split(" ")[0]}
+                                <IoIosArrowDown className={`text-lg transition-transform duration-300 ${userDropdownOpen ? "rotate-180" : "rotate-0"}`} />
                             </button>
-                        ) : session ? (
-                            <div className="relative">
-                                <button
-                                    onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                                    className="hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md flex items-center gap-2"
-                                >
-                                    <Image src={session?.user?.image} alt='profile' width={1000} height={1000} className='rounded-full w-8 h-8' />
-                                    {session?.user?.name?.split(" ")[0]}
-                                    <IoIosArrowDown className={`text-lg transition-transform duration-300 ${userDropdownOpen ? "rotate-180" : "rotate-0"}`} />
-                                </button>
-                                {userDropdownOpen && (
-                                    <ul className="absolute z-[999] right-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300">
-                                        <li className="px-4 py-2 hover:bg-gray-100">
-                                            <Link href="/create">Write Blog</Link>
-                                        </li>
-                                        <li className="px-4 py-2 hover:bg-gray-100">
-                                            <Link href="/my-blogs">My Blogs</Link>
-                                        </li>
-                                        <li className="px-4 py-2 hover:bg-gray-100">
-                                            <Link href="/drafts">Drafts</Link>
-                                        </li>
-                                        <li className="px-4 py-2 hover:bg-gray-100">
-                                            <button onClick={handleLogout}>Logout</button>
-                                        </li>
-                                    </ul>
-                                )}
-                            </div>
-                        ) : (
-                            <Link href={"/login"}>
-                                <button className="hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md">
-                                    Login
-                                </button>
-                            </Link>
-                        )}
-                    </div>
+                            {userDropdownOpen && (
+                                <ul className="absolute z-[999] right-0 mt-2 bg-white shadow-md rounded-md p-2 w-48 transition-all duration-300">
+                                    <li className="px-4 py-2 hover:bg-gray-100">
+                                        <Link href="/create">Write Blog</Link>
+                                    </li>
+                                    <li className="px-4 py-2 hover:bg-gray-100">
+                                        <Link href="/my-blogs">My Blogs</Link>
+                                    </li>
+                                    <li className="px-4 py-2 hover:bg-gray-100">
+                                        <Link href="/drafts">Drafts</Link>
+                                    </li>
+                                    <li className="px-4 py-2 hover:bg-gray-100">
+                                        <button onClick={handleLogout}>Logout</button>
+                                    </li>
+                                </ul>
+                            )}
+                        </div>
+                    ) : (
+                        <Link href={"/login"}>
+                            <button className="hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md">
+                                Login
+                            </button>
+                        </Link>
+                    )}
                 </div>
             </div>
 

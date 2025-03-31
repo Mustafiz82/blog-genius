@@ -9,6 +9,7 @@ function convertToEditorJSFormat(content) {
 
     const cleanText = (text) => {
         return text
+            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')  // Links
             .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')  // Bold
             .replace(/\*(?!\*)(.*?)(?<!\*)\*/g, '<i>$1</i>')  // Italic
             .replace(/`(.*?)`/g, '<code>$1</code>')  // Inline code
@@ -99,6 +100,39 @@ function convertToEditorJSFormat(content) {
             flushTable();
         }
 
+        // Handle blockquotes
+        const blockquoteMatch = line.match(/^>\s*(.*)/);
+        if (blockquoteMatch) {
+            flushParagraph();
+            flushList();
+            const parts = blockquoteMatch[1].split(/ — /);
+            const quotePart = parts[0];
+            const captionPart = parts.length > 1 ? parts[1] : '';
+
+            // Process quote text
+            let quoteText = quotePart
+                .replace(/^[\*"]+/, '')
+                .replace(/[\*"]+$/, '');
+            quoteText = stripMarkdown(quoteText);
+
+            // Process caption
+            let captionText = captionPart
+                .replace(/^\*\*+/, '')
+                .replace(/\*\*+$/, '')
+                .replace(/^ +/, (m) => '&nbsp;'.repeat(m.length))
+                .replace(/ +$/, (m) => '&nbsp;'.repeat(m.length));
+
+            blocks.push({
+                type: 'quote',
+                data: {
+                    text: quoteText,
+                    caption: captionText,
+                    alignment: 'left'
+                }
+            });
+            return;
+        }
+
         // Handle headers
         const headerMatch = line.match(/^(#+)\s(.*)/);
         if (headerMatch) {
@@ -154,5 +188,5 @@ function convertToEditorJSFormat(content) {
     };
 }
 
+export default convertToEditorJSFormat;
 
-export default convertToEditorJSFormat

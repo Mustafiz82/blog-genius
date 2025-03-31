@@ -22,7 +22,7 @@ export default function Newsletter({ blog }) {
                     placeholder="Email Address*"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="flex-grow w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="flex-grow w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
                 <button
                     onClick={handleSubscribe}

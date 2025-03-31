@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { FaHeart, FaFacebookF, FaPinterestP } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { HiOutlineMail } from "react-icons/hi";
+import Link from 'next/link';
 
 const TopBlog = () => {
     return (
@@ -35,9 +36,10 @@ const TopBlog = () => {
                 <p className='leading-relaxed my-2'>{blogs?.[0]?.description}</p>
 
                 <div className="flex justify-center my-10">
-                    <button className='uppercase hover:border-transparent text-black/70 border-black/70 hover:text-white hover:bg-primary duration-300  font-semibold px-4 py-2 border bg-gray-200'>
+                  <Link href={"/blogs/1"}>
+                  <button className='uppercase hover:border-transparent text-black/70 border-black/70 hover:text-white hover:bg-primary duration-300  font-semibold px-4 py-2 border bg-gray-200'>
                         Keep Reading
-                    </button>
+                    </button></Link>
                 </div>
 
                 <div className='text-sm px-10 border-t border-b py-3 border-y-black/30 flex justify-between'>
