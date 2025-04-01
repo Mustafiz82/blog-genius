@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
         
         <nav className="my-4">
-          <ul className="flex space-x-6 justify-center">
+          <ul className="flex flex-wrap gap-x-10 gap-y-2 justify-center">
             <li><Link href="/blogs">Blog</Link></li>
             {subcategories.map((sub, idx) => (
               <li key={idx}>

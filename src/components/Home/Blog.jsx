@@ -7,7 +7,7 @@ import Link from 'next/link';
 const Blog = () => {
     return (
         <div>
-            <div className='grid mx-10 gap-5 mt-12 grid-cols-3 ' >
+            <div className='grid  mx-5 lg:mx-10 gap-5 mt-5 lg:mt-12 grid-cols-1 md:grid-cols-3 ' >
                 {
                     blogs?.map((item, idx) => <VerticalCard key={idx} item={item} />)
                 }

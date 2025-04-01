@@ -12,12 +12,12 @@ const page = () => {
         <div className='w-full bg-[#F6F6F6]'>
 
 
-            <div className='container  px-10 py-10 mx-auto '>
+            <div className='container  px-5 lg:px-10 py-10 mx-auto '>
                 <Banner />
                 <Travel />
-                <div className='grid gap-5 grid-cols-3 '>
+                <div className='grid gap-5 md:grid-cols-2 lg:grid-cols-3 '>
                     <div className='col-span-2'>
-                        <div className=' grid grid-cols-2 gap-5'>
+                        <div className=' grid grid-cols-1 md:grid-cols-2 gap-5'>
                             <Technology />
                             <Business />
                         </div>
@@ -26,7 +26,9 @@ const page = () => {
 
                     </div>
 
-                    <SideContent />
+                   <div className='md:col-span-2 lg:col-span-1 md:mt-[45px]'>
+                   <SideContent  />
+                   </div>
 
 
                 </div>

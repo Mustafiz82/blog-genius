@@ -18,7 +18,7 @@ const VerticalCard = ({ item , hideDesc }) => {
                 </span>
             </div>
             <div className="py-5">
-                <h2 className="text-2xl font-semibold  mb-2">{item?.title}</h2>
+                <h2 className="text-xl lg:text-2xl font-semibold  mb-2">{item?.title}</h2>
                 <p className="text-sm text-gray-600 mb-3">
                     BY <span className='text-purple-500'>{item?.author}</span> - {item?.date}
                 </p>

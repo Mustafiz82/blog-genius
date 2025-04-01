@@ -9,7 +9,7 @@ const Lifestyle = () => {
         <div>
              <CategoryTitle title={"lifestyle"} />
 
-            <div className="grid mt-5 gap-5 grid-cols-2">
+            <div className="grid mt-5 gap-5 gird-cols-1 md:grid-cols-2">
                 <VerticalCard item={blogs?.[0]} />
                 <div className='grid grid-cols-2 gap-5'>
                     {

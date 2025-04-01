@@ -11,13 +11,11 @@ const SideContent = () => {
 
             <h2 className='text-xl text-center mt-16 duration-300 font-semibold hover:text-primary  leading-0'>Popular</h2>
 
-            <div className="mt-10 space-y-5">
+            <div className="mt-10 grid md:grid-cols-3 lg:grid-cols-1 gap-5">
             {
                 blogs?.map((item , idx) => <VerticalCard hideDesc key={idx} item={item}/>)
             }
-            {
-                blogs?.slice(0,1)?.map((item , idx) => <VerticalCard hideDesc key={idx} item={item}/>)
-            }
+            
             </div>
 
             <CategoryList/>

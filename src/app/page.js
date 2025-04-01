@@ -9,28 +9,7 @@ import Image from "next/image";
 
 export default function Home() {
 
-  //   const input ='' ```json
-  // {
-  //   "blocks": [
-  //     {
-  //       "type": "header",
-  //       "data": {
-  //         "text": "The JavaScript Deepsea",
-  //         "level": 1
-  //       }
-  //     },
-
-  //     {
-  //       "type": "paragraph",
-  //       "data": {
-  //         "text": "Understanding how JavaScript manages memory can help prevent leaks and optimize performance. Garbage collection plays a key role, but developers must still be mindful of references."
-  //       }
-  //     }
-  //   ]
-  // }
-  // ```
-
-  // console.log(input);
+  
   return (
 
     <div>
@@ -39,7 +18,7 @@ export default function Home() {
       {/* <Slider/> */}
       <InfiniteImageSlider />
       {/* <Categories /> */}
-      <div className="!container px-10">
+      <div className="!container  mx-auto lg:px-10">
         <Blog />
         <Newsletter />
       </div>

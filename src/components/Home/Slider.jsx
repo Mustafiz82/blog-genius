@@ -130,7 +130,7 @@ export default function App() {
                             <img
                                 src={slide?.image}
 
-                                className={`min-w-full h-60 sm:h-96 md:h-[640px] object-cover transition-all duration-1000 ${isSliding && (idx === slideIndex) ? (slidingDirection == "left" ? "scale-175 duration-1000 object-right" : "scale-175 object-left") : "scale-100 "
+                                className={`min-w-full h-68  sm:h-96 md:h-[640px] object-cover transition-all duration-1000 ${isSliding && (idx === slideIndex) ? (slidingDirection == "left" ? "scale-175 duration-1000 object-right" : "scale-175 object-left") : "scale-100 "
                                     } `}
                                 alt={`Slider - ${idx + 1}`}
 
@@ -147,7 +147,7 @@ export default function App() {
                                     </p>)
                                 }
                             </div>
-                            <h2 className="text-3xl border-bottom mt-2 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
+                            <h2 className="text-lg lg:text-3xl border-bottom mt-2 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
                                 {slide?.title}
                             </h2>
 

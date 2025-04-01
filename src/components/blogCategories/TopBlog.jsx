@@ -30,7 +30,7 @@ const TopBlog = () => {
                     height={300} // Adjust as needed
 
                     objectFit="cover"
-                    className="block h-[450px] group-hover:scale-110 duration-500 w-full"
+                    className="block aspect-[9:16] group-hover:scale-110 duration-500 w-full"
                 />
 
                 <p className='leading-relaxed my-2'>{blogs?.[0]?.description}</p>
@@ -42,7 +42,7 @@ const TopBlog = () => {
                     </button></Link>
                 </div>
 
-                <div className='text-sm px-10 border-t border-b py-3 border-y-black/30 flex justify-between'>
+                <div className='text-sm md:px-10 border-t border-b py-3 border-y-black/30 flex justify-between'>
                     <p>By <span className='text-purple-500  '>{blogs?.[0]?.author}</span></p>
 
                     <div>
