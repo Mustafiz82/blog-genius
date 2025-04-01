@@ -52,7 +52,7 @@ export default function Publish({ blogData: blogdetail }) {
                 <div className=''>
                     <div className='flex   !relative gap-10'>
                         
-                        <div className='prose  '>
+                        <div className='prose max-w-full  '>
                             {renderEditorJSContent(blogdetail?.blog?.blocks)}
                         </div>
 

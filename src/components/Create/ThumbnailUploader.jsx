@@ -106,7 +106,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
     // };
     return (
         <>
-            <div className="flex justify-between gap-10 mt-20  my-10">
+            <div className="flex flex-col md:flex-row justify-between gap-10 mt-20  my-10">
 
                 <div className="flex-1 max-w-[400px]">
                     <h1 className="text-2xl font-semibold">Upload Your Thumbnail</h1>
@@ -122,7 +122,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
 
                 </div>
                 <div
-                    className="border-2 h-[300px] aspect-video  flex justify-center items-center border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-white/30 duration-300"
+                    className="border-2 h-[300px] aspect-[9:16]  flex justify-center items-center border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-white/30 duration-300"
                     onClick={() => fileInputRef.current.click()}
                     onDrop={handleDrop}
                     onDragOver={(e) => e.preventDefault()}

@@ -32,7 +32,7 @@ const EDITOR_TOOLS = {
     raw: Raw,
 };
 
-function Editor({ data, onChange, holder, setBlogData , aiContent }) {
+function Editor({ data, onChange, holder, setBlogData , aiContent , currentStep}) {
     // Reference to the editor instance
     const ref = useRef(null);
 
@@ -74,7 +74,7 @@ function Editor({ data, onChange, holder, setBlogData , aiContent }) {
     return (
         <div>
             <div className="w-full max-w-full mx-auto">
-                <div id={holder} className="bg-white text-black rounded-lg border border-gray-200 p-6 min-h-[500px] prose prose-lg" />
+                <div  id={holder} className="bg-white text-black rounded-lg border border-gray-200 p-6 min-h-[500px] prose prose-lg" />
             </div>
         </div>
     );

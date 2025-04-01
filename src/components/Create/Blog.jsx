@@ -8,30 +8,15 @@ let Editor = dynamic(() => import("@/components/Create/Editor"), {
     ssr: false,
 });
 
-const Blog = ({ blogData, setBlogData }) => {
+const Blog = ({ blogData, setBlogData , currentStep }) => {
     const [content, setContent] = useState(null);
     const [loading, setLoading] = useState(false);
     const [aiContentState, setAiContentState] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
 
-    const structure = {
-    "id": "EBsNUECRPO",
-    "type": "list",
-    "data": {
-        "style": "ordered",
-        "meta": {
-            "counterType": "numeric"
-        },
-        "items": [
-            {
-                "content": "d",
-                "meta": {},
-                "items": []
-            }
-        ]
-    }
-}
+    
+
     const handleGenerateBlog = async () => {
         setLoading(true);
         setErrorMessage(""); // Reset error before generating new content
@@ -39,7 +24,7 @@ const Blog = ({ blogData, setBlogData }) => {
         const OPENROUTER_API_KEY = "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"; 
         const messages = [{
             role: "user", 
-            content: `Generate a detailed blog with the title '${blogData?.title}' in Editor.js JSON format, maintaining bold, italic, underline, and other text formatting; use a code block only if the topic is directly related to programming or coding and also it needed to add as a quote in standard way, use quote blocks for direct sayings from people, and if a section is non-technical and a quote is appropriate, use a quote block; ensure the JSON includes the required 'time' and 'version' fields along with properly formatted 'blocks', and generate the content strictly in English. N.B list item structure : ` 
+            content: `Generate a detailed blog with the title '${blogData?.title}' in Editor.js JSON format, maintaining bold, italic, underline, and other text formatting. use quote blocks for direct sayings from people, and if a section is non-technical and a quote is appropriate, use a quote block; ensure the JSON includes the required 'time' and 'version' fields along with properly formatted 'blocks', and generate the content strictly in English. N.B list item structure ` 
         }];
 
         try {
@@ -97,11 +82,11 @@ const Blog = ({ blogData, setBlogData }) => {
         <div className="py-5 shadow-sm px-5 my-16 mb-5 bg-white/50 rounded-lg">
             <div className="flex justify-between items-center">
                 {loading ? (
-                    <p className="text-primary mb-5 text-3xl font-medium animate-pulse">
+                    <p className="text-primary lg:mb-5 text-xl lg:text-3xl font-medium animate-pulse">
                         Generating your blog...
                     </p>
                 ) : (
-                    <h1 className="mb-5 text-3xl font-semibold">
+                    <h1 className="lg:mb-5 text-xl lg:text-3xl font-semibold">
                         Write description of your blog.
                     </h1>
                 )}
@@ -121,6 +106,7 @@ const Blog = ({ blogData, setBlogData }) => {
                 onChange={setContent} 
                 holder="editor_create" 
                 setBlogData={setBlogData} 
+                currentStep={currentStep}
             />
         </div>
     );

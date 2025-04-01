@@ -128,7 +128,7 @@ const Title = ({ blogData, setBlogData }) => {
 
                         </div>
                         {!loading && (
-                            <div className="absolute -top-12 cursor-pointer whitespace-nowrap opacity-0 duration-500 hover:hidden group-hover:-top-16 group-hover:opacity-100">
+                            <div className="absolute -top-12 right-0 lg:right-auto cursor-pointer whitespace-nowrap opacity-0 duration-500 hover:hidden group-hover:-top-16 group-hover:opacity-100">
                                 <p className="h-fit rounded-md bg-gradient-to-r from-[#0EA5E9] via-[#6366F1] to-[#9333EA] text-sm px-3 py-2 text-white shadow-[0px_0px_10px_0px_#6366F1]">
                                     Generate with AI
                                 </p>

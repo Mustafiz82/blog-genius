@@ -91,7 +91,7 @@ const Page = () => {
         (currentStep === 3 && (!BlogData.category.trim() || BlogData.tags.length === 0 || !BlogData.authorName.trim()));
 
     return (
-        <div className="min-h-screen pb-10 max-w-[70%] mx-auto">
+        <div className="min-h-screen px-5 pb-10 lg:max-w-[70%] mx-auto">
             {/* Step Indicator */}
             <Step steps={steps} currentStep={currentStep} setCurrentStep={setCurrentStep} />
 
@@ -99,7 +99,7 @@ const Page = () => {
             {currentStep === 0 && <Title blogData={BlogData} setBlogData={setBlogData} />}
 
             <div style={{ display: currentStep === 1 ? "block" : "none" }}>
-                <Blog blogData={BlogData} setBlogData={setBlogData} />
+                <Blog currentStep={currentStep} blogData={BlogData} setBlogData={setBlogData} />
             </div>
             {currentStep === 2 && <ThumbnailUploader blogData={BlogData} setBlogData={setBlogData} />}
             {currentStep === 3 && <Details blogData={BlogData} setBlogData={setBlogData} />}

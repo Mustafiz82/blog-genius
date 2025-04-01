@@ -20,7 +20,7 @@ export default function Step({ steps, setCurrentStep, currentStep }) {
 
     return (
         <div className=''>
-            <div className="flex items-center mx-auto justify-between max-w-[70vw] pt-10 space-x-4">
+            <div className="flex items-center mx-auto justify-between px-5 sm:max-w-[70vw] pt-10 space-x-4">
                 {steps.map((step, index) => (
                     <div
                         key={index}
