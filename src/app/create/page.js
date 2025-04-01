@@ -6,6 +6,8 @@ import Step from "@/components/Create/Step";
 import ThumbnailUploader from "@/components/Create/ThumbnailUploader";
 import Title from "@/components/Create/Title";
 import React, { useState, useEffect } from "react";
+import "../../style/step.css"
+import "../../style/spark.css"
 
 const Page = () => {
     const [currentStep, setCurrentStep] = useState(0);
