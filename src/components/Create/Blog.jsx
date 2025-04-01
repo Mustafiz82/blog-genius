@@ -14,6 +14,24 @@ const Blog = ({ blogData, setBlogData }) => {
     const [aiContentState, setAiContentState] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+
+    const structure = {
+    "id": "EBsNUECRPO",
+    "type": "list",
+    "data": {
+        "style": "ordered",
+        "meta": {
+            "counterType": "numeric"
+        },
+        "items": [
+            {
+                "content": "d",
+                "meta": {},
+                "items": []
+            }
+        ]
+    }
+}
     const handleGenerateBlog = async () => {
         setLoading(true);
         setErrorMessage(""); // Reset error before generating new content
@@ -21,7 +39,7 @@ const Blog = ({ blogData, setBlogData }) => {
         const OPENROUTER_API_KEY = "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"; 
         const messages = [{
             role: "user", 
-            content: `Generate a detailed blog with the title '${blogData?.title}' in Editor.js JSON format, maintaining bold, italic, underline, and other text formatting; use a code block only if the topic is directly related to programming or coding and also it needed to add as a quote in standard way, use quote blocks for direct sayings from people, and if a section is non-technical and a quote is appropriate, use a quote block; ensure the JSON includes the required 'time' and 'version' fields along with properly formatted 'blocks', and generate the content strictly in English.` 
+            content: `Generate a detailed blog with the title '${blogData?.title}' in Editor.js JSON format, maintaining bold, italic, underline, and other text formatting; use a code block only if the topic is directly related to programming or coding and also it needed to add as a quote in standard way, use quote blocks for direct sayings from people, and if a section is non-technical and a quote is appropriate, use a quote block; ensure the JSON includes the required 'time' and 'version' fields along with properly formatted 'blocks', and generate the content strictly in English. N.B list item structure : ` 
         }];
 
         try {
@@ -41,8 +59,10 @@ const Blog = ({ blogData, setBlogData }) => {
 
             const aiContent = response.data.choices[0]?.message?.content;
             if (aiContent) {
+                console.log(aiContent);
                 try {
-                    const editorFormat = JSON.parse(aiContent.split("json")?.[1]?.split("`")?.[0]);
+                    const editorFormat = JSON.parse(aiContent.split("```json")?.[1]?.split("``")?.[0]);
+                    console.log(editorFormat);
 
                     // Validate the JSON structure
                     if (
@@ -62,7 +82,7 @@ const Blog = ({ blogData, setBlogData }) => {
                     setAiContentState(!aiContentState);
                 } catch (parseError) {
                     console.error("Editor.js JSON Parsing Error:", parseError);
-                    setErrorMessage("Error: Generated content is not in a valid format for the editor.");
+                    setErrorMessage("Error Generating content. please try again . ");
                 }
             }
         } catch (error) {

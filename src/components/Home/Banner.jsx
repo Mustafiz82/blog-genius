@@ -11,10 +11,14 @@ const Banner = () => {
                 <Link href={"/create"}>
                     <button className='hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md'>
                         Write With Ai
-                    </button></Link>
+                    </button>
+                </Link>
+                <Link href={"/blogs"}>
                 <button className='hover:bg-black/70 duration-300 px-8 py-3 bg-primary text-white font-semibold rounded-md'>
                     Read Blogs
                 </button>
+                </Link>
+          
             </div>
         </div>
     );

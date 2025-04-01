@@ -30,11 +30,11 @@ const Nav = () => {
         <div hidden={isAuthPage} className="relative">
             <div className='py-4 shadow-sm flex justify-between items-center 2xl:text-lg bg-white px-5 w-full grid grid-cols-3'>
                 {/* Logo Section */}
-                <div>
+                <Link href={"/"}>
                     <h2 className='!text-2xl !font-semibold uppercase'>
                         <span className='text-primary'>Blog </span> Genius Ai
                     </h2>
-                </div>
+                </Link>
 
                 {/* Navigation Links */}
                 <div className='flex justify-center'>

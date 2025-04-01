@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Input from "../common/Input";
 
 export default function Details({ blogData, setBlogData }) {
   const [author, setAuthor] = useState(blogData?.authorName || "");
@@ -31,14 +32,14 @@ export default function Details({ blogData, setBlogData }) {
   };
 
   return (
-    <div className="p-6 mt-20 bg-white/30 mx-auto rounded-lg">
+    <div className="p-6 mt-20 bg-white/80 shadow-sm mx-auto rounded-lg">
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Blog Details</h2>
 
       {/* Author Name */}
       <label className="block mb-2 text-gray-600">Author Name</label>
       <input
         type="text"
-        className="w-full p-2 focus:outline-0 border rounded"
+        className="w-full bg-transparent p-2 focus:outline-0 border rounded"
         value={author}
         onChange={(e) => {
           setAuthor(e.target.value);
@@ -47,10 +48,11 @@ export default function Details({ blogData, setBlogData }) {
         placeholder="Enter author name"
       />
 
+
       {/* Category */}
       <label className="block mt-4 mb-2 text-gray-600">Category</label>
       <select
-        className="w-full p-2 border rounded"
+        className="w-full bg-transparent p-2 border rounded"
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);

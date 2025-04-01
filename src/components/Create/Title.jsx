@@ -102,7 +102,7 @@ const Title = ({ blogData, setBlogData }) => {
                     type="text"
                     placeholder="Enter your blog title  or provide a topic name to generate a title"
                     value={blogData?.title || ""}
-                    className="w-full focus:outline-0"
+                    className="w-full bg-transparent focus:outline-0"
                     onChange={handleChange}
                 />
 

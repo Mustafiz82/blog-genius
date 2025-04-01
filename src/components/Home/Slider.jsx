@@ -139,7 +139,7 @@ export default function App() {
 
                         </div>
 
-                        <div className="absolute text-white flex flex-col justify-center items-center w-full h-full top-0 left-0 bg-black/40">
+                        <div className="absolute text-white flex flex-col justify-center items-center w-full h-full top-0 left-0 bg-black/30">
                             <div className="flex gap-2">
                                 {
                                     slide.tags.map((item, idx) => <p key={idx}>
@@ -147,7 +147,7 @@ export default function App() {
                                     </p>)
                                 }
                             </div>
-                            <h2 className="text-4xl border-bottom mt-2 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
+                            <h2 className="text-3xl border-bottom mt-2 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
                                 {slide?.title}
                             </h2>
 
