@@ -1,7 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import React from "react";
-import { FaFacebookF, FaGithub } from "react-icons/fa";
+import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const SocialLoginButton = ({ provider, callbackUrl, icon, label, iconClass }) => {
@@ -37,10 +37,10 @@ const Page = () => {
             label="Log in with Google"
           />
           <SocialLoginButton
-            provider="facebook"
+            provider="linkedin"
             callbackUrl="/"
-            icon={<FaFacebookF className="w-5 h-5 text-[#1877F2] group-hover:!text-white duration-300" />}
-            label="Log in with Facebook"
+            icon={<FaLinkedinIn className="w-5 h-5 text-[#0077B5] group-hover:!text-white duration-300" />}
+            label="Log in with Linkedin"
           />
           <SocialLoginButton
             provider="github"

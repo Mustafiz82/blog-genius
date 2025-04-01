@@ -93,16 +93,16 @@ const Title = ({ blogData, setBlogData }) => {
 
     return (
         <div className="my-20">
-            <h1 className="text-3xl font-semibold">
+            <h1 className="text-xl lg:text-3xl font-semibold">
                 What's your blog title?
             </h1>
 
-            <div className="flex items-center justify-between my-5 border-b w-full p-2 text-2xl font-medium">
+            <div className="flex items-center justify-between my-5 border-b w-full p-2 text-lg lg:text-2xl font-medium">
                 <input
                     type="text"
                     placeholder="Enter your blog title  or provide a topic name to generate a title"
                     value={blogData?.title || ""}
-                    className="w-full bg-transparent focus:outline-0"
+                    className="w-full bg-transparent line-clamp-1 focus:outline-0"
                     onChange={handleChange}
                 />
 
