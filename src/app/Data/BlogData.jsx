@@ -260,5 +260,5 @@ export const blogs = [
     category: "Technology",
     tags: ["d"],
     authorName: "mustafiz"
-};
+}
 

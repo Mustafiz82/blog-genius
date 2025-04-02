@@ -39,6 +39,7 @@
     "slate-history": "^0.110.3",
     "slate-hyperscript": "^0.100.0",
     "slate-react": "^0.112.1",
+    "sweetalert2": "^11.17.2",
     "swiper": "^11.2.5",
     "uninstall": "^0.0.0"
   },

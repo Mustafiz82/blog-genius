@@ -122,13 +122,13 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
 
                 </div>
                 <div
-                    className="border-2 h-[300px] aspect-[9:16]  flex justify-center items-center border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-white/30 duration-300"
+                    className="border-2 h-[300px] aspect-video  flex justify-center items-center border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-white/30 duration-300"
                     onClick={() => fileInputRef.current.click()}
                     onDrop={handleDrop}
                     onDragOver={(e) => e.preventDefault()}
                 >
                     {image ? (
-                        <img src={URL.createObjectURL(blogData.thumbnail)} alt="Thumbnail" className="h-full w-auto rounded-lg" />
+                        <img src={URL.createObjectURL(blogData.thumbnail)} alt="Thumbnail" className="h-full w-full rounded-lg" />
                     ) : (
                         <div className="flex flex-col justify-center items-center">
                             <Image alt="thumbnail" src={"/images/image-icon.png"}

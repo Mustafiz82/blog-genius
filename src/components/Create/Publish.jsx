@@ -13,6 +13,7 @@ import { renderEditorJSContent } from '@/Helper/renderEditorJSContent';
 
 export default function Publish({ blogData: blogdetail }) {
 
+
     function getBlogCreationDate(blogId) {
         const timestamp = parseInt(blogId.split('_')[1]);
         const date = new Date(timestamp);
@@ -20,9 +21,14 @@ export default function Publish({ blogData: blogdetail }) {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
-        });
+        }); 
     }
 
+
+ 
+
+
+    
 
     return (
         <div className='w-full bg-white/70 my-8 md:my-20 p-4 md:p-8 max-w-4xl mx-auto'>
