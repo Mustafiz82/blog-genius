@@ -3,7 +3,7 @@ import React from 'react';
 const CategoryList = () => {
     const categories = [
         { name: 'Business', count: 8 },
-        { name: 'Culture', count: 10 },
+        { name: 'Food', count: 10 },
         { name: 'Lifestyle', count: 8 },
         { name: 'Technology', count: 11 },
         { name: 'Travel', count: 8 },

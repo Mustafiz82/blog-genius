@@ -7,7 +7,7 @@ const Footer = () => {
   const pathname = usePathname();
   const isAuthPage = pathname === "/login" || pathname === "/signup";
 
-  const subcategories = ["technology", "travel", "lifestyle", "culture", "business"];
+  const subcategories = ["technology", "travel", "lifestyle", "Food", "business"];
 
   return (
     <footer hidden={isAuthPage} className="bg-white border-t border-purple-300 py-16 text-center">

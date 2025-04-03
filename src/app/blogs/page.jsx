@@ -1,6 +1,6 @@
 import Banner from '@/components/Blog/Banner';
 import Business from '@/components/Blog/Business';
-import Culture from '@/components/Blog/Culture';
+import Food from '@/components/Blog/Food';
 import Lifestyle from '@/components/Blog/Lifestyle';
 import SideContent from '@/components/Blog/SideContent';
 import Technology from '@/components/Blog/Technology';
@@ -22,7 +22,7 @@ const page = () => {
                             <Business />
                         </div>
                         <Lifestyle />
-                        <Culture />
+                        <Food />
 
                     </div>
 

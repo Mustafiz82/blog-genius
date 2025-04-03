@@ -10,7 +10,7 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { IoIosArrowBack } from "react-icons/io";
 import Image from "next/image";
 
-export default function App() {
+export default function App({data}) {
     const carouselImages = [
         "https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.unsplash.com/photo-1508873881324-c92a3fc536ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -124,11 +124,11 @@ export default function App() {
 
                 className="mySwiper relative mb-10"
             >
-                {carouselData.map((slide, idx) => (
+                {data.map((slide, idx) => (
                     <SwiperSlide key={idx} className="flex relative  justify-center items-center">
                         <div className="w-full   h-auto overflow-hidden ">
                             <img
-                                src={slide?.image}
+                                src={slide?.thumbnail}
 
                                 className={`min-w-full h-68  sm:h-96 md:h-[640px] object-cover transition-all duration-1000 ${isSliding && (idx === slideIndex) ? (slidingDirection == "left" ? "scale-175 duration-1000 object-right" : "scale-175 object-left") : "scale-100 "
                                     } `}

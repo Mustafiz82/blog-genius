@@ -17,7 +17,7 @@ const Nav = () => {
     const [userDropdownOpen, setUserDropdownOpen] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
-    const subcategories = ["technology", "travel", "lifestyle", "culture", "business"];
+    const subcategories = ["technology", "travel", "lifestyle", "Food", "business"];
 
     const pathname = usePathname();
     const isAuthPage = pathname === "/login" || pathname === "/signup";

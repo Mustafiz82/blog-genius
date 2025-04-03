@@ -5,11 +5,11 @@ import HorizontalCard from './HorizontalCard';
 import CategoryTitle from '../common/CategoryTitle';
 import VerticalCard from './VerticalCard';
 
-const Culture = () => {
+const Food = () => {
     return (
         <div>
 
-            <CategoryTitle title={"culture"} />
+            <CategoryTitle title={"Food"} />
             <div className='mt-5 lg:mt-12 space-y-4'>
                 {
                     blogs?.map((item, idx) => <div key={idx}>
@@ -40,4 +40,4 @@ const Culture = () => {
     );
 };
 
-export default Culture;
+export default Food;
