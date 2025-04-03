@@ -1,5 +1,6 @@
 import { extractDescription } from '@/Helper/extractDesctiption';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const HorizontalCard = ({ item , quality }) => {
@@ -16,7 +17,7 @@ const HorizontalCard = ({ item , quality }) => {
 
 
     return (
-        <div className='space-y-5' >
+        <Link href={`/blogs/${item?._id}`} className='space-y-5' >
             <div className='mb-5'>
                 <div className="flex mt-5 gap-5 items-start justify-start   rounded-md overflow-hidden">
                     <div className="w-1/3 h-40 relative">
@@ -45,7 +46,7 @@ const HorizontalCard = ({ item , quality }) => {
                 </div>
             </div>
 
-        </div>
+        </Link>
     );
 };
 

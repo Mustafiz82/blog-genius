@@ -1,6 +1,7 @@
 import { blogs } from '@/app/Data/BlogData';
 import { getBlogCreationDate } from '@/Helper/extractDate';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Banner = ({data}) => {
@@ -25,12 +26,13 @@ const Banner = ({data}) => {
                     />
 
                     {/* Overlay with Content */}
-                    <div className="absolute  bg-gradient-to-b from-black/0 to-black/50 inset-0 flex flex-col justify-end p-8 text-white">
-                        <span className="bg-primary w-fit px-2 py-1 rounded-sm text-[10px] md:text-xs font-semibold uppercase mb-2">
+                    <div className="absolute  bg-gradient-to-b from-black/0 to-black/50 inset-0  text-white">
+                       <Link className='h-full flex flex-col justify-end p-8' href={`/blogs/${item?._id}`}>
+                       <span className="bg-primary w-fit px-2 py-1 rounded-sm text-[10px] md:text-xs font-semibold uppercase mb-2">
                             {item?.category}
                         </span>
-                        <h1 className={` font-bold mb-4  ${idx == 0 ? "text-xl lg:!text-3xl 2xl:!text-4xl" : "text-lg lg:text-2xl 2xl:!text-3xl"}`}>{item?.title}</h1>
-                        <p className="text-[11px] md:text-sm">{item?.authorName} - {getBlogCreationDate( item?.date)}</p>
+                        <h1 className={` font-bold mb-4  ${idx == 0 ? "text-xl lg:!text-3xl 2xl:!text-4xl" : "text-lg lg:text-xl 2xl:!text-2xl"}`}>{item?.title}</h1>
+                        <p className="text-[11px] md:text-sm">{item?.authorName} - {getBlogCreationDate( item?.date)}</p></Link>
                     </div>
                 </div>)
             }

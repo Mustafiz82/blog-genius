@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const CategoryList = () => {
@@ -15,13 +16,13 @@ const CategoryList = () => {
             <div className="space-y-4">
 
                 {categories.map((category) => (
-                    <div key={category.name} className="flex items-center justify-between">
+                    <Link  href={`/blogs/category/${category?.name}`} key={category.name} className="flex items-center justify-between">
                         <div className="flex items-center">
                             <span className="text-primary mr-2">•</span>
                             <span className="text-gray-800">{category.name}</span>
                         </div>
                         <span className="text-gray-500">({category.count})</span>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

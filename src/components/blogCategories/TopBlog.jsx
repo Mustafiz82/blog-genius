@@ -54,7 +54,7 @@ const TopBlog = ({ data }) => {
                 <p className='leading-relaxed my-2'>{extractDescription(data)}</p>
 
                 <div className="flex justify-center my-10">
-                    <Link href={"/blogs/1"}>
+                    <Link href={`/blogs/${data?._id}`}>
                         <button className='uppercase hover:border-transparent text-black/70 border-black/70 hover:text-white hover:bg-primary duration-300  font-semibold px-4 py-2 border bg-gray-200'>
                             Keep Reading
                         </button></Link>

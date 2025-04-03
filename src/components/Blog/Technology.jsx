@@ -3,6 +3,7 @@ import React from 'react';
 import VerticalCard from './VerticalCard';
 import Image from 'next/image';
 import CategoryTitle from '../common/CategoryTitle';
+import Link from 'next/link';
 
 const Technology = ({ data }) => {
     return (
@@ -13,7 +14,7 @@ const Technology = ({ data }) => {
                 {
                     data?.map((item, idx) => <div className='space-y-5' key={idx}>
                         {
-                            idx == 0 ? <VerticalCard item={item} /> : <div>
+                            idx == 0 ? <VerticalCard item={item} /> : <Link href={`/blogs/${item?._id}`}>
                                 <div className="flex mt-5 gap-5 items-start   rounded-md overflow-hidden">
                                     <Image
                                         src={item?.thumbnail}
@@ -29,7 +30,7 @@ const Technology = ({ data }) => {
                                         <p className="text-sm text-gray-500 mt-1">{item?.date}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         }
                     </div>)
                 }</div>

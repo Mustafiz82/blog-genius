@@ -3,6 +3,7 @@ import VerticalCard from './VerticalCard';
 import { blogs } from '@/app/Data/BlogData';
 import Image from 'next/image';
 import CategoryTitle from '../common/CategoryTitle';
+import Link from 'next/link';
 
 const Lifestyle = ({ data }) => {
     return (
@@ -13,7 +14,7 @@ const Lifestyle = ({ data }) => {
                 <VerticalCard item={data?.[0]} />
                 <div className='grid grid-cols-2 gap-5'>
                     {
-                        data?.slice(1, 5)?.map((item, idx) => <div className='space-y-5' key={idx}>
+                        data?.slice(1, 5)?.map((item, idx) => <Link href={`/blogs/${item?._id}`} className='space-y-5' key={idx}>
 
                             <div className="  gap-10 items-start   rounded-sm overflow-hidden">
 
@@ -35,7 +36,7 @@ const Lifestyle = ({ data }) => {
                                 </div>
                             </div>
 
-                        </div>)
+                        </Link>)
                     }
                 
                 </div>

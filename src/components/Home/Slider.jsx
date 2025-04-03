@@ -9,6 +9,7 @@ import "../../style/carousel.css"
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { IoIosArrowBack } from "react-icons/io";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function App({data}) {
     const carouselImages = [
@@ -147,10 +148,11 @@ export default function App({data}) {
                                     </p>)
                                 }
                             </div>
-                            <h2 className="text-lg lg:text-3xl border-bottom mt-2 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
+                            <Link   href={`/blogs/3`}>
+                            <h2 className="text-lg hover:underline   lg:text-3xl border-bottom mt-2 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
                                 {slide?.title}
                             </h2>
-
+</Link>
                             <p className="text-sm text-white mb-3">
                                 By Jhon Doe - May 20, 2025
                             </p>
