@@ -1,17 +1,12 @@
+import { getBlogCreationDate } from '@/Helper/extractDate';
+import { extractDescription } from '@/Helper/extractDesctiption';
 import Image from 'next/image';
 
 const VerticalCard = ({ item, hideDesc , quality}) => {
 
 
-    function getBlogCreationDate(blogId) {
-        const timestamp = parseInt(blogId?.split('_')[1]);
-        const date = new Date(timestamp);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    }
+    console.log(hideDesc);
+   
 
 
     return (
@@ -36,7 +31,7 @@ const VerticalCard = ({ item, hideDesc , quality}) => {
                 <p className="text-sm text-gray-600 mb-3">
                     BY <span className='text-purple-500'>{item?.authorName}</span> - {getBlogCreationDate(item?.id)}
                 </p>
-                <p hidden={hideDesc} className={` leading-relaxed text-sm line-clamp-3 `}>{item?.description}</p>
+                { !hideDesc && <p hidden={hideDesc} className={` leading-relaxed text-sm line-clamp-3 `}>{item ? extractDescription(item) : ""}</p>}
             </div>
         </div>
     );

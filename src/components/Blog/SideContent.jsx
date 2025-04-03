@@ -3,8 +3,11 @@ import Newsletter from '../Home/Newsletter';
 import { blogs } from '@/app/Data/BlogData';
 import VerticalCard from './VerticalCard';
 import CategoryList from './CategoryList';
+import blogService from '@/Service';
 
-const SideContent = () => {
+const SideContent = async ()  => {
+
+    const res = await blogService.getPopularBlog()
     return (
         <div className='mt-9'>
             <Newsletter blog />
@@ -13,7 +16,7 @@ const SideContent = () => {
 
             <div className="mt-10 grid md:grid-cols-3 lg:grid-cols-1 gap-5">
             {
-                blogs?.map((item , idx) => <VerticalCard hideDesc key={idx} item={item}/>)
+                res?.data?.map((item , idx) => <VerticalCard hideDesc={true} key={idx} item={item}/>)
             }
             
             </div>
