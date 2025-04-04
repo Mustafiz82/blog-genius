@@ -7,8 +7,9 @@ const blogService = {
     getBlogByCategory : (category , page ) => httpClient.get(`/blogs/category?category=${category}&page=${page || 1}&limit=10`),
     getBlogs: (formData) => httpClient.post(`/blogs/fetch`, formData),
     getSingleBlogs: (id) =>  httpClient.get(`/blogs/${id}`),
+    searchBlogs : (query) =>  httpClient.post(`/blogs/search` ,query),
 };
 
 
-export default blogService  ;
+export default blogService  ;    
 

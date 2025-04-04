@@ -8,7 +8,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { LuMenu } from "react-icons/lu";
 
@@ -27,6 +27,28 @@ const Nav = () => {
         signOut();
         setUserDropdownOpen(false);
     };
+
+    const [query, setQuery] = useState('');
+    const router = useRouter();
+
+    const handleSearch = () => {
+
+        const trimmed = query.trim();
+        if (trimmed) {
+            router.push(`/search?q=${encodeURIComponent(trimmed)}`);
+            setIsOpen(false)
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
+
+
+
 
     return (
         <div hidden={isAuthPage} className="relative">
@@ -107,7 +129,7 @@ const Nav = () => {
                 className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ${drawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 onClick={() => setDrawerOpen(false)}
             ></div>
-            
+
             <div
                 className={`fixed z-[9999] top-0 left-0 h-full bg-white w-64 p-5 transition-transform duration-300 ease-in-out ${drawerOpen ? 'translate-x-0' : '-translate-x-full'} lg:hidden`}
             >
@@ -138,8 +160,13 @@ const Nav = () => {
                 <IoCloseOutline onClick={() => setIsOpen(false)} className="text-7xl leading-0 cursor-pointer" />
                 <h2 className='text-xl font-semibold'>Type and hit Enter to search</h2>
                 <div className="relative w-full lg:w-auto ">
-                    <input className='border duration-200 border-gray-400 px-5 py-3 rounded-full focus:outline-0 focus:border-gray-600 w-full lg:w-[600px]' type="text" placeholder='Search blogs ...' />
-                    <div className='bg-primary absolute top-[5px] right-[5px] rounded-full flex justify-center items-center w-10 h-10 p-2'>
+                    <input
+                        onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        className='border duration-200 border-gray-400 px-5 py-3 rounded-full focus:outline-0 focus:border-gray-600 w-full lg:w-[600px]' type="text" placeholder='Search blogs ...' />
+                    <div
+                        onClick={handleSearch}
+                        className='bg-primary absolute top-[5px] right-[5px] rounded-full flex justify-center items-center w-10 h-10 p-2'>
                         <BiSearchAlt className='text-2xl text-white' />
                     </div>
                 </div>
