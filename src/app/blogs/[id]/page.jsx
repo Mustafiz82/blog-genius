@@ -15,7 +15,7 @@ const page = async ({params}) => {
         <div className='!container grid grid-cols-1 lg:grid-cols-3 gap-12  px-5 md:px-10 py-10 mx-auto '>
             <BlogDetail data={res?.data} />
 
-            <div className='md:mt-32'>
+            <div className='md:mt-24'>
                 <SideContent />
             </div>
         </div>

@@ -12,21 +12,11 @@ const page = async ({ params }) => {
 
     const res = await blogService.getBlogByCategory(category);
 
-    // Get the current date when the data is fetched
-    const fetchDate = new Date().getTime(); // This formats the current date
-
-    console.log(res?.data); 
-    console.log('Data fetched at: ', fetchDate);
-
     return (
         <div className='!container w-full mx-auto px-5 md:px-10 py-14'>
             <p className='uppercase text-center text-[12px] text-black/70 '>Category</p>
             <h1 className='text-center'>{(params?.categories).toUpperCase()}</h1>
-            
-            {/* Show the date when the data is fetched */}
-            <div className='text-center my-4'>
-                <p className='text-gray-500 text-sm'>Data fetched at: {fetchDate}</p>
-            </div>
+                  
 
             <div className="grid grid-cols-1 lg:grid-cols-3 md:gap-5">
                 <div className='col-span-2'>
