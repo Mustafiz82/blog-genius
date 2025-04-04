@@ -14,6 +14,7 @@ import { LuMenu } from "react-icons/lu";
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [date, setDate] = useState(null)
     const [userDropdownOpen, setUserDropdownOpen] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -71,12 +72,14 @@ const Nav = () => {
                             <Link href="/blogs">Blogs</Link>
                         </li>
                         {subcategories.map((sub, idx) => (
-                            <li className='hover:text-primary duration-300' key={idx}>
-                                <Link href={`/blogs/category/${sub}`} className="capitalize">
+                            <li onClick={() => setDate(new Date())} className='hover:text-primary duration-300' key={idx}>
+                                <Link href={`/blogs/category/${sub} `} className="capitalize">
                                     {sub}
                                 </Link>
                             </li>
                         ))}
+
+                        <li className='text-red-500'>{date ? date.getTime() : null}</li>
                     </ul>
                 </div>
 
@@ -146,8 +149,13 @@ const Nav = () => {
                         <Link href="/blogs" className="block">Blogs</Link>
                     </li>
                     {subcategories.map((sub, idx) => (
-                        <li key={idx}>
-                            <Link href={`/blogs/category/${sub}`} className="block capitalize">
+                        <li
+
+                            key={idx}>
+
+                            <Link
+
+                                href={`/blogs/category/${sub}`} className="block capitalize">
                                 {sub}
                             </Link>
                         </li>

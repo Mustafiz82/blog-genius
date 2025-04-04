@@ -22,6 +22,8 @@ const TopBlog = ({ data }) => {
     }
 
 
+    const stripHtml = (text) => text?.replace(/<\/?[^>]+(>|$)/g, "");
+
 
 
     return (
@@ -51,7 +53,7 @@ const TopBlog = ({ data }) => {
                     className="block aspect-[9:16] group-hover:scale-110 duration-500 w-full"
                 />
 
-                <p className='leading-relaxed my-2'>{extractDescription(data)}</p>
+                <p className='leading-relaxed my-2'>{stripHtml(data?.description)}</p>
 
                 <div className="flex justify-center my-10">
                     <Link href={`/blogs/${data?._id}`}>

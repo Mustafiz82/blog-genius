@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-const HorizontalCard = ({ item , quality }) => {
+const HorizontalCard = ({ item , quality  , categoryPage}) => {
 
     function getBlogCreationDate(blogId) {
         const timestamp = parseInt(blogId?.split('_')[1]);
@@ -14,6 +14,9 @@ const HorizontalCard = ({ item , quality }) => {
             day: 'numeric'
         });
     }
+
+    const stripHtml = (text) => text?.replace(/<\/?[^>]+(>|$)/g, "");
+
 
 
     return (
@@ -40,7 +43,7 @@ const HorizontalCard = ({ item , quality }) => {
                             <p className="text-sm text-gray-600 mb-3">
                                 BY <span className='text-purple-500'>{item?.authorName}</span> - {getBlogCreationDate(item?.id)}
                             </p>
-                            <p className="leading-relaxed text-sm line-clamp-3 ">{extractDescription(item)}</p>
+                            <p className="leading-relaxed text-sm line-clamp-3 ">{categoryPage ? stripHtml(item?.description) : extractDescription(item) }</p>
                         </div>
                     </div>
                 </div>
