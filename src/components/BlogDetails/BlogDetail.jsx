@@ -47,7 +47,7 @@ const BlogDetail = ({ data }) => {
                             <HiOutlineMail className="cursor-pointer border border-gray-400  p-2 rounded-full text-4xl hover:bg-primary  hover:text-white duration-300 transition" />
                         </div>
                     </div>
-                    <div className='prose  '>
+                    <div className='prose  mt-5 '>
                         {renderEditorJSContent(data?.blog?.blocks)}
                     </div>
 

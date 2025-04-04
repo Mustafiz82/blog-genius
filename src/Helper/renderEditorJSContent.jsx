@@ -61,7 +61,8 @@ export const renderEditorJSContent = (content) => {
                 return (
                     <HeaderTag
                         key={blockKey}
-                        className={`my-6 !font-bold ${block.data.level === 1
+                        hidden = {index == 0 }
+                        className={` my-6 !font-bold ${block.data.level === 1
                                 ? '!text-4xl !leading-tight'
                                 : block.data.level === 2
                                     ? '!text-3xl !leading-snug'
