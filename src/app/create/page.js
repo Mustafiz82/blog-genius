@@ -12,10 +12,13 @@ import axios from "axios";
 import blogService from "@/Service";
 import Swal from "sweetalert2";
 import { blogdetail } from "../Data/BlogData";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [loading, setLoading] = useState(false)
+    const {status , data} = useSession()
 
     const steps = [
         { id: 1, label: "Title" },
@@ -34,18 +37,26 @@ const Page = () => {
         thumbnail: "",
         category: "",
         tags: [],
-        authorName: ""
+        authorName: data?.user?.name || "",
+        authorEmail : data?.user?.email || ""
     };
 
     // State for blog data
     const [BlogData, setBlogData] = useState(Output);
+    const router = useRouter();
+    console.log(BlogData);
 
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.replace("/login");
+        }
+    }, [status, router]);
 
     const handleNext = () => {
         if (currentStep === 0 && !BlogData.title.trim()) return;
         if (currentStep === 1 && !BlogData.blog.blocks) return;
         if (currentStep === 2 && !BlogData.thumbnail) return;
-        if (currentStep === 3 && (!BlogData.category.trim() || BlogData.tags.length === 0 || !BlogData.authorName.trim())) return;
+        if (currentStep === 3 && (!BlogData.category.trim() || BlogData.tags.length === 0 )) return;
 
         const blogId = BlogData.id || `blog_${Date.now()}`;
         const updatedData = { ...BlogData, id: blogId };
@@ -65,31 +76,37 @@ const Page = () => {
 
 
     const handlePublishBlog = async () => {
-
         setLoading(true);
-        const imageBBUrl = process.env.NEXT_PUBLIC_IMAGEBB_URL
-        const file = BlogData.thumbnail
-
+        const imageBBUrl = process.env.NEXT_PUBLIC_IMAGEBB_URL;
+        const file = BlogData.thumbnail;
+    
+        // Fallback to session data if author info is missing
+        const finalBlogData = {
+            ...BlogData,
+            authorName: BlogData.authorName || data?.user?.name || "",
+            authorEmail: BlogData.authorEmail || data?.user?.email || "",
+        };
+    
         if (file) {
             const formData = new FormData();
             formData.append("image", file);
-
+    
             try {
                 const res = await axios.post(imageBBUrl, formData, {
                     headers: {
                         "content-type": "multipart/form-data",
                     },
                 });
-
+    
                 const imageUrl = res?.data.data.display_url;
-
+    
                 if (imageUrl) {
                     const object = {
-                        ...BlogData,
-                        thumbnail: imageUrl
-                    }
-
-                    const res = await blogService.postBlogs(object)
+                        ...finalBlogData,
+                        thumbnail: imageUrl,
+                    };
+    
+                    const res = await blogService.postBlogs(object);
                     if (res?.data) {
                         Swal.fire({
                             title: 'Success!',
@@ -98,14 +115,13 @@ const Page = () => {
                             confirmButtonText: 'Great!',
                             confirmButtonColor: '#8e67e6',
                             background: '#fff',
-                            color: '#333'
+                            color: '#333',
                         });
                     }
                 }
-
             } catch (err) {
                 console.error("Error uploading image:", err);
-
+    
                 Swal.fire({
                     title: 'Oops!',
                     text: 'There was an error publishing your blog.',
@@ -113,13 +129,14 @@ const Page = () => {
                     confirmButtonText: 'Try Again',
                     confirmButtonColor: '#8e67e6',
                     background: '#fff',
-                    color: '#333'
+                    color: '#333',
                 });
             } finally {
                 setLoading(false);
             }
         }
     };
+    
 
 
     // Disable Next Button if required fields are empty
@@ -127,10 +144,10 @@ const Page = () => {
         (currentStep === 0 && !BlogData.title.trim()) ||
         (currentStep === 1 && !BlogData.blog.blocks) ||
         (currentStep === 2 && !BlogData.thumbnail) ||
-        (currentStep === 3 && (!BlogData.category.trim() || BlogData.tags.length === 0 || !BlogData.authorName.trim()));
+        (currentStep === 3 && (!BlogData.category.trim() || BlogData.tags.length === 0 ));
 
     return (
-        <div className="min-h-screen px-5 pb-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto">
+        status !== "unauthenticated" &&  <div className="min-h-screen px-5 pb-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto">
             {/* Step Indicator */}
             <Step
                 steps={steps}

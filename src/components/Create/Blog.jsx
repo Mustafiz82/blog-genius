@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import SparkAnimating from "./sparkAnimating";
 import Spark from "./Spark";
+import { blogdetail } from "@/app/Data/BlogData";
 
 let Editor = dynamic(() => import("@/components/Create/Editor"), {
     ssr: false,
@@ -15,23 +16,21 @@ const Blog = ({ blogData, setBlogData , currentStep }) => {
     const [errorMessage, setErrorMessage] = useState("");
 
 
-    
-
     const handleGenerateBlog = async () => {
         setLoading(true);
         setErrorMessage(""); // Reset error before generating new content
-
+    
         const OPENROUTER_API_KEY = "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"; 
         const messages = [{
             role: "user", 
-            content: `Generate a detailed blog with the title '${blogData?.title}' in Editor.js JSON format, maintaining bold, italic, underline, and other text formatting. use quote blocks for direct sayings from people, and if a section is non-technical and a quote is appropriate, use a quote block; ensure the JSON includes the required 'time' and 'version' fields along with properly formatted 'blocks', and generate the content strictly in English. N.B list item structure ` 
+            content: `generate a detailed blog about topic '${blogData?.title}'. The blog format should be in Editor.js JSON format. Don't use image here. You can use <quote> if appropriate. Don't use any markdown (** or other). For formatting use <b>, <i>, or <u>. Example response: ${blogdetail?.blog}. Answer exactly in the same way. No format modification. Strictly follow it. Must include "version".`
         }];
-
+    
         try {
             const response = await axios.post(
                 "https://openrouter.ai/api/v1/chat/completions",
                 {
-                    model: "deepseek/deepseek-chat-v3-0324:free",
+                    model: 'google/gemini-2.0-flash-lite-001',
                     messages,
                 },
                 {
@@ -41,15 +40,22 @@ const Blog = ({ blogData, setBlogData , currentStep }) => {
                     },
                 }
             );
-
+    
             const aiContent = response.data.choices[0]?.message?.content;
             if (aiContent) {
                 console.log(aiContent);
                 try {
-                    const editorFormat = JSON.parse(aiContent.split("```json")?.[1]?.split("``")?.[0]);
-                    console.log(editorFormat);
-
-                    // Validate the JSON structure
+                    const editorFormat2 = aiContent.split("```json")?.[1]?.split("```")?.[0];
+                    const parsed = JSON.parse(editorFormat2);
+    
+                    // Ensure required fields
+                    const editorFormat = {
+                        ...parsed,
+                        time: parsed.time || Date.now(),
+                        version: parsed.version || "2.27.0"
+                    };
+    
+                    // Validate Editor.js structure
                     if (
                         typeof editorFormat !== "object" ||
                         !editorFormat.time ||
@@ -58,7 +64,7 @@ const Blog = ({ blogData, setBlogData , currentStep }) => {
                     ) {
                         throw new Error("Invalid Editor.js format.");
                     }
-
+    
                     setBlogData((prev) => ({
                         ...prev,
                         blog: editorFormat
@@ -67,7 +73,7 @@ const Blog = ({ blogData, setBlogData , currentStep }) => {
                     setAiContentState(!aiContentState);
                 } catch (parseError) {
                     console.error("Editor.js JSON Parsing Error:", parseError);
-                    setErrorMessage("Error Generating content. please try again . ");
+                    setErrorMessage("Error Generating content. Please try again.");
                 }
             }
         } catch (error) {
@@ -77,7 +83,7 @@ const Blog = ({ blogData, setBlogData , currentStep }) => {
             setLoading(false);
         }
     };
-
+    
     return (
         <div className="py-5 shadow-sm px-5 my-16 mb-5 bg-white/50 rounded-lg">
             <div className="flex justify-between items-center">

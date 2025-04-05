@@ -17,6 +17,8 @@ const SocialLoginButton = ({ provider, callbackUrl, icon, label, iconClass }) =>
   );
 };
 
+
+
 const Page = () => {
   return (
     <div className="flex md:min-h-screen py-10 bg-white md:bg-transparent md:py-0 2xl:py-16 items-center justify-center">

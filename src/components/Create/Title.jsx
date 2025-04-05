@@ -20,20 +20,42 @@ const Title = ({ blogData, setBlogData }) => {
         }));
     };
 
+
+
     const handleGenerateTitle = async () => {
+
+
+        // Sample API call to Hugging Face's inference endpoint
+        // fetch("https://openrouter.ai/api/v1/chat/completions", {
+        //     method: "POST",
+        //     headers: {
+        //       "Authorization": "Bearer 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",
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       model: "mistralai/mistral-7b-instruct",
+        //       messages: [{ role: "user", content: "Write a blog post about AI and education." }],
+        //     }),
+        //   });
+          
+
+
+        const prompt = `Create 10 blog title about ${blogData?.title || "Technology, Lifestyle, Business, Food, or Travel"}. You have to choose the title yourself. Answer with the title only — no explanations, no phrases like "Okay, here is your response." Return plain text.\n\nExample:\nPrompt: generate a title\nAnswer: Future of Technology\n\nRemember to respond a Array formate of javascript code `;
+
         const OPENROUTER_API_KEY = "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";
-        const messages = [{ role: "user", content: `Create a blog title about ${blogData?.title || "any topic"} don,t include ${generatedTitleArray || ""}` }];
+        const messages = [{ role: "user", content: prompt}];
 
 
         setLoading(true);
 
-        
+
 
         try {
             const response = await axios.post(
                 'https://openrouter.ai/api/v1/chat/completions',
                 {
-                    model: 'deepseek/deepseek-chat-v3-0324:free',
+                    // model: 'google/gemini-2.0-flash-exp:free',
+                    model: 'google/gemini-2.0-flash-lite-001',
                     messages
                 },
                 {
@@ -44,7 +66,9 @@ const Title = ({ blogData, setBlogData }) => {
                 }
             );
 
-            const aiMessage = response.data.choices[0].message;
+            console.log(response?.data);
+            const aiMessage = await  response?.data?.choices?.[0]?.message?.content
+            console.log( response.data.choices[0].message.content);
             setResponse(aiMessage);
         } catch (error) {
             console.error('OpenRouter API error:', error.response?.data || error.message);
@@ -54,22 +78,32 @@ const Title = ({ blogData, setBlogData }) => {
     };
 
     useEffect(() => {
-        if (response?.content && typeof response?.content === 'string') {
-            const regex = /(?<=\*\*")[^"]+(?="\*\*)/g;
-            const matches = response?.content.match(regex);
+        console.log(typeof response);
+        if (response && typeof response === 'string') {
+            // const regex = /(?<=\*\*")[^"]+(?="\*\*)/g;
+            const matches = response?.split("```javascript")?.[1]?.split("```")?.[0]
+
+            console.log(matches);
 
             if (matches) {
-                setGeneratedTitleArray(matches)
-                console.log(matches);
+
+                const array = JSON.parse(matches);
+                console.log(array);
+
+                setGeneratedTitleArray(array)
+                console.log(generatedTitleArray);
                 setBlogData(prev => ({
                     ...prev,
-                    title: matches?.[0]
+                    title: array?.[0]
                 }));
 
-                setFinalTitle(matches?.[0])
+                setFinalTitle(array?.[0])
             }
         }
     }, [response]);
+
+
+
 
 
     const handleChangeTitle = () => {
@@ -107,15 +141,12 @@ const Title = ({ blogData, setBlogData }) => {
                 />
 
                 <div className='flex justify-center items-center gap-3'>
-
                     {
-                        generatedTitleArray?.length > 0 && (generatedTitleArrayIndex !== generatedTitleArray?.length-1)  && <TbReload
+                        generatedTitleArray?.length > 0 && (generatedTitleArrayIndex !== generatedTitleArray?.length - 1) && <TbReload
                             onClick={handleChangeTitle}
                             className='!text-3xl cursor-pointer ' title='Change Title' />
                     }
                     <div className="group items-center gap-3 relative flex h-fit cursor-pointer justify-center">
-
-
 
                         <div className=''
                             onClick={handleGenerateTitle}
@@ -136,7 +167,6 @@ const Title = ({ blogData, setBlogData }) => {
                             </div>
                         )}
 
-                        {/* Hover Text */}
                     </div>
                 </div>
             </div>

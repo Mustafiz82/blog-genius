@@ -74,6 +74,7 @@ const Nav = () => {
                             <li className='hover:text-primary duration-300' key={idx}>
                                 <Link href={`/blogs/category/${sub} `} className="capitalize">
                                     {sub}
+                                    
                                 </Link>
                             </li>
                         ))}

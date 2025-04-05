@@ -36,7 +36,7 @@ const page = async ({ params }) => {
                         }
                     </div>
                 </div>
-                <div className='md:mt-[124px] w-full'>
+                <div className='md:mt-[124px]  w-full'>
                     <SideContent />
                 </div>
             </div>
