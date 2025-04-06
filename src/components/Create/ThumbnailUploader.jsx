@@ -74,7 +74,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
     //         "Authorization": "Bearer " + token,
     //         "Content-Type": "application/json",
     //       }
-          
+
     //       const body = {
     //         "model": "mjywibjqlss5",
     //         "prompt": "Photograph light trails created by sparklers against a night sky. Use a DSLR camera with a 35mm lens, set to f/22 and a long exposure of 10 seconds. The scene is illuminated by the light trails, creating intricate patterns against a starry backdrop.",
@@ -84,8 +84,8 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
     //         "guidance_scale": 3.5
     //       }
 
-        
-          
+
+
     //       fetch("https://api.friendli.ai/dedicated/v1/images/generations", {
     //         method: "POST",
     //         headers,
@@ -100,7 +100,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
     //         })
     //         .catch(err => console.log(err));
 
-           
+
 
     //     setLoading(false);
     // };
@@ -128,7 +128,11 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
                     onDragOver={(e) => e.preventDefault()}
                 >
                     {image ? (
-                        <img src={URL.createObjectURL(blogData.thumbnail)} alt="Thumbnail" className="h-full w-full rounded-lg" />
+                        typeof blogData.thumbnail === "string" ? (
+                            <img src={blogData.thumbnail} alt="Thumbnail" className="h-full w-full rounded-lg object-cover" />
+                        ) : (
+                            <img src={URL.createObjectURL(blogData.thumbnail)} alt="Thumbnail" className="h-full w-full rounded-lg object-cover" />
+                        )
                     ) : (
                         <div className="flex flex-col justify-center items-center">
                             <Image alt="thumbnail" src={"/images/image-icon.png"}
@@ -147,7 +151,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
                 </div>
             </div>
 
-          
+
         </>
     );
 }

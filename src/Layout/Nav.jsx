@@ -107,9 +107,9 @@ const Nav = () => {
                                     <li className="px-4 py-2 hover:bg-gray-100">
                                         <Link href="/my-blogs">My Blogs</Link>
                                     </li>
-                                    <li className="px-4 py-2 hover:bg-gray-100">
+                                    {/* <li className="px-4 py-2 hover:bg-gray-100">
                                         <Link href="/drafts">Drafts</Link>
-                                    </li>
+                                    </li> */}
                                     <li className="px-4 py-2 hover:bg-gray-100">
                                         <button onClick={handleLogout}>Logout</button>
                                     </li>

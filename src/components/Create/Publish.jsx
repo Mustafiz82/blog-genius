@@ -21,14 +21,14 @@ export default function Publish({ blogData: blogdetail }) {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
-        }); 
+        });
     }
 
 
- 
 
 
-    
+
+
 
     return (
         <div className='w-full bg-white/70 my-8 md:my-20 p-4 md:p-8 max-w-4xl mx-auto'>
@@ -46,18 +46,20 @@ export default function Publish({ blogData: blogdetail }) {
                 </div>
 
                 <Image
-                   src={URL.createObjectURL(blogdetail.thumbnail)}
+                    src={typeof blogdetail.thumbnail === "string"
+                        ? blogdetail.thumbnail
+                        : URL.createObjectURL(blogdetail.thumbnail)}
                     alt={blogdetail?.title}
                     width={600} // Adjust as needed
                     height={300} // Adjust as needed
-
                     objectFit="cover"
-                    className="block pt-3 object-cover w-full aspect-[9:16] group-hover:scale-110 duration-500 "
+                    unoptimized
+                    className="block pt-3 object-cover w-full aspect-video  group-hover:scale-110 duration-500 "
                 />
 
-                <div className=''>
+                <div className='mt-5'>
                     <div className='flex   !relative gap-10'>
-                        
+
                         <div className='prose max-w-full  '>
                             {renderEditorJSContent(blogdetail?.blog?.blocks)}
                         </div>
@@ -72,7 +74,7 @@ export default function Publish({ blogData: blogdetail }) {
                         </div>
 
                         <div>
-                           
+
                         </div>
                     </div>
 

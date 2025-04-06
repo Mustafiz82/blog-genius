@@ -2,8 +2,10 @@ import { getBlogCreationDate } from '@/Helper/extractDate';
 import { extractDescription } from '@/Helper/extractDesctiption';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from "react-icons/md";
 
-const VerticalCard = ({ item, hideDesc, quality }) => {
+const VerticalCard = ({ item, hideDesc, quality, edit }) => {
 
 
     console.log(hideDesc);
@@ -27,6 +29,14 @@ const VerticalCard = ({ item, hideDesc, quality }) => {
                     <span className="absolute bottom-2 left-2 bg-primary text-white text-xs uppercase px-2 py-1">
                         {item?.category}
                     </span>
+
+                    {edit && <div className='absolute w-full top-4  px-4 flex justify-between items-center '>
+                        <MdDelete className='text-4xl p-2 text-white bg-red-500 rounded-full' />
+                        <Link  href={`/blogs/edit/${item?._id}`}>
+                        <FaEdit  className='text-4xl p-2 text-white bg-primary rounded-full' /></Link>
+
+                    </div>
+                    }
                 </div>
                 <div className="py-5">
                     <h2 className="text-xl line-clamp-2 font-semibold  mb-2">{item?.title}</h2>
