@@ -153,7 +153,7 @@ export default function App({data}) {
                                 {slide?.title}
                             </h2>
 </Link>
-                            <p className="text-sm text-white mb-3">
+                            <p className="text-sm mt-2 text-white mb-3">
                                 By Jhon Doe - May 20, 2025
                             </p>
                         </div>

@@ -122,7 +122,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
 
                 </div>
                 <div
-                    className="border-2 h-[300px] aspect-video  flex justify-center items-center border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-white/30 duration-300"
+                    className="border-2 h-[300px] aspect-video  flex justify-center items-center border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-white/70 bg-white/50 duration-300"
                     onClick={() => fileInputRef.current.click()}
                     onDrop={handleDrop}
                     onDragOver={(e) => e.preventDefault()}
@@ -136,7 +136,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
                     ) : (
                         <div className="flex flex-col justify-center items-center">
                             <Image alt="thumbnail" src={"/images/image-icon.png"}
-                                className="w-[100px] h-[100px] object-cover opacity-65"
+                                className="w-[100px] h-[100px] object-cover opacity-80"
                                 width={500} height={500} />
                             <p className="text-gray-500">Click, drag & drop, or paste an image here</p>
                         </div>
