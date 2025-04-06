@@ -59,10 +59,14 @@ const page = () => {
                                     </div>
                                 </div>
                             ))
-                            : data?.map((item, idx) => <VerticalCard edit item={item} key={idx} />)
+                            : data?.map((item, idx) => <VerticalCard
+                                item={item}
+                                edit
+                                authorEmail={session?.user?.email}
+                            />)
                     }
                 </div>
-
+  
                 {status === "authenticated" && data?.length === 0 && !loading && (
                     <div className="flex flex-col items-center mt-8">
                         <h2 className="text-2xl font-bold mt-4">No Blogs Yet</h2>
