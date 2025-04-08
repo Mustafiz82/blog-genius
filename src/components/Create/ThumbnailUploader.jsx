@@ -85,15 +85,6 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
         "Analyzing Blog...", "Generating Image Prompt...", "Generating Image..."
     ]
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setSelectedIndex(prev => (prev + 1) % 3);
-    //     }, 1000);
-
-    //     return () => clearInterval(interval);
-    // }, []);
-
-
 
     return (
 
@@ -106,6 +97,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
 
                 <button
                     onClick={handleGenerate}
+                    disabled={loading}
                     className="px-6 py-3 mt-4 text-white bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 rounded-sm shadow-md transition-all">
                     ✨ Generate with AI
                 </button>
@@ -135,7 +127,7 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
                                 className="w-[20px] absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 h-[20px] object-cover opacity-50 "
                                 width={500} height={500} />
                             <Image alt="spin" src={"/images/spin.png"}
-                                className="w-[50px]   animate-spin  h-[50px] object -cover opacity-50 "
+                                className="w-[50px]    animate-spin  h-[50px] object-cover opacity-50 "
                                 width={500} height={500} />
                         </div>
 

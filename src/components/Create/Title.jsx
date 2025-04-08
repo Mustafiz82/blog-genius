@@ -4,11 +4,11 @@ import { HiSparkles } from 'react-icons/hi2';
 import SparkAnimating from './sparkAnimating';
 import Spark from './Spark';
 import { TbReload } from "react-icons/tb";
+import { generateTitlePromt } from '@/Helper/Promt';
 
 
 const Title = ({ blogData, setBlogData }) => {
     const [response, setResponse] = useState("");
-    const [finalTitle, setFinalTitle] = useState("")
     const [loading, setLoading] = useState(false); // Loading state
     const [generatedTitleArray, setGeneratedTitleArray] = useState([])
     const [generatedTitleArrayIndex, setGeneratedTitleArrayIndex] = useState(0)
@@ -20,34 +20,14 @@ const Title = ({ blogData, setBlogData }) => {
         }));
     };
 
-
-
     const handleGenerateTitle = async () => {
 
-
-        // Sample API call to Hugging Face's inference endpoint
-        // fetch("https://openrouter.ai/api/v1/chat/completions", {
-        //     method: "POST",
-        //     headers: {
-        //       "Authorization": "Bearer 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",
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //       model: "mistralai/mistral-7b-instruct",
-        //       messages: [{ role: "user", content: "Write a blog post about AI and education." }],
-        //     }),
-        //   });
-          
-
-
-        const prompt = `Create 10 blog title about ${blogData?.title || "Technology, Lifestyle, Business, Food, or Travel"}. You have to choose the title yourself. Answer with the title only — no explanations, no phrases like "Okay, here is your response." Return plain text.\n\nExample:\nPrompt: generate a title\nAnswer: Future of Technology\n\nRemember to respond a Array formate of javascript code `;
-
-        const OPENROUTER_API_KEY = "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";
+        const prompt = generateTitlePromt(blogData?.title);
+        const OPENROUTER_API_KEY = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY
         const messages = [{ role: "user", content: prompt}];
 
 
         setLoading(true);
-
 
 
         try {
@@ -97,7 +77,7 @@ const Title = ({ blogData, setBlogData }) => {
                     title: array?.[0]
                 }));
 
-                setFinalTitle(array?.[0])
+            
             }
         }
     }, [response]);
@@ -186,3 +166,4 @@ export default Title;
 
 
 
+//189

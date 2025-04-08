@@ -1,3 +1,5 @@
+import { blogdetail } from "@/app/Data/BlogData";
+import BlogDetail from "@/components/BlogDetails/BlogDetail";
 
 const exampleResultOfThumbnailUplaodPromt = ({
     prompt: `Blog Thumbnail: Inviting scene capturing the essence of budget backpacking in Thailand.
@@ -24,12 +26,19 @@ const exampleResultOfThumbnailUplaodPromt = ({
     keywords: ["Thailand", "budget travel", "backpacking", "adventure", "Southeast Asia", "cheap travel", "travel guide", "explore", "vibrant", "tropical"]
 });
 
-// export const GenerateImagePromt = `generate  a perfect promt for generating blog thumbnail fot title "${blogData?.title}" data . write the promt in json without any additional text .  make it creative while following all the thumbnail making principles to attarch the user to click the post . their will be only promt withoru any additonal code or other think. make sure the respons look like this .also make sure theri si no syntax in the json file .
-//   ${exampleResultofThumbnailUplaodPromt}
-// `
-
 export const generateImagePrompt = (title) => {
     return `generate a perfect prompt for generating blog thumbnail for title "${title}" data. Write the prompt in JSON without any additional text. Make it creative while following all the thumbnail-making principles to attract the user to click the post. There will be only prompt without any additional code or other things. Make sure the response looks like this. Also, make sure there is no syntax in the JSON file.  
   
   ${exampleResultOfThumbnailUplaodPromt}`;
-  };
+};
+
+
+
+export const generateTitlePromt = (title) => {
+    return `Create 10 blog title about ${title || "Technology, Lifestyle, Business, Food, or Travel"}. You have to choose the title yourself. Answer with the title only — no explanations, no phrases like "Okay, here is your response." Return plain text.\n\nExample:\nPrompt: generate a title\nAnswer: Future of Technology\n\nRemember to respond a Array formate of javascript code `
+}
+
+
+export const generateBlogPrompt = (title) => {
+    return `generate a detailed blog about topic '${title}'. The blog format should be in Editor.js JSON format .you must need to  follow the example response below  . Don't use image here. You can use <quote> if appropriate. for quote type write the sentence in data.text and name of the person who said in data.caption. Don't use any markdown (** or other). For formatting use <b>, <i>, or <u>. Example response: ${blogdetail?.blog}. please be extra careful in json structure cause one syntax error. dont make syntax error like "Expected ',' or ']' after array element in JSON at position " will crash my website as i am using api. Answer exactly in the same way. No format modification. Strictly follow it. Must include "version".`
+}  

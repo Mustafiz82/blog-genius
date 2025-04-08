@@ -14,6 +14,8 @@ import Swal from "sweetalert2";
 // import { blogdetail } from "../Data/BlogData";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import publishBlog from "@/Helper/publishBlog";
+import updateBlog from "@/Helper/updateBlog";
 
 const MainPage = ({ blogDataEdit }) => {
     const [currentStep, setCurrentStep] = useState(0);
@@ -77,176 +79,14 @@ const MainPage = ({ blogDataEdit }) => {
     };
 
 
-    const handlePublishBlog = async () => {
 
-        setLoading(true);
-        const imageBBUrl = process.env.NEXT_PUBLIC_IMAGEBB_URL;
-        const file = BlogData.thumbnail;
-
-        // Fallback to session data if author info is missing
-        const finalBlogData = {
-            ...BlogData,
-            authorName: BlogData.authorName || data?.user?.name || "",
-            authorEmail: BlogData.authorEmail || data?.user?.email || "",
-        };
-
-        if (file) {
-
-
-            const formData = new FormData();
-
-            if (typeof file == "object") {
-
-                formData.append("image", file);
-            }
-            else {
-                formData.append("image", file.replace(/^data:image\/\w+;base64,/, ''));
-
-            }
-
-            try {
-                const res = await axios.post(imageBBUrl, formData, {
-                    headers: {
-                        "content-type": "multipart/form-data",
-                    },
-                });
-
-                const imageUrl = res?.data.data.display_url;
-
-                if (imageUrl) {
-                    const object = {
-                        ...finalBlogData,
-                        thumbnail: imageUrl,
-                    };
-
-                    const res = await blogService.postBlogs(object);
-                    if (res?.data) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Your blog has been published successfully.',
-                            icon: 'success',
-                            confirmButtonText: 'View Blog',
-                            confirmButtonColor: '#8e67e6',
-                            background: '#fff',
-                            color: '#333',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Navigate to the /my-blogs page when the user clicks "View Blog"
-                                window.location.href = "/my-blogs";
-                            }
-                        });
-                    }
-                }
-            } catch (err) {
-                console.error("Error uploading image:", err);
-
-                Swal.fire({
-                    title: 'Oops!',
-                    text: 'There was an error publishing your blog.',
-                    icon: 'error',
-                    confirmButtonText: 'Try Again',
-                    confirmButtonColor: '#8e67e6',
-                    background: '#fff',
-                    color: '#333',
-                });
-            } finally {
-                setLoading(false);
-            }
-        }
+    const handlePublishBlog = () => {
+        publishBlog({ BlogData, sessionUser: data?.user, setLoading });
     };
 
-
-    const handleEditBlog = async () => {
-        console.log("edit triggered");
-
-        setLoading(true); // Start loading state
-
-        const imageBBUrl = process.env.NEXT_PUBLIC_IMAGEBB_URL;
-        const file = BlogData.thumbnail;
-        let imageUrl;
-
-        try {
-            if (file) {
-                if (typeof file === "object") {
-                    // Upload image to ImageBB
-                    const formData = new FormData();
-
-                    formData.append("image", file);
-
-                    const res = await axios.post(imageBBUrl, formData, {
-                        headers: {
-                            "content-type": "multipart/form-data",
-                        },
-                    });
-
-                    imageUrl = res?.data.data.display_url;
-                    console.log(imageUrl);
-                } else if (typeof file === "string") {
-
-                    if (file.startsWith('data:image/')) {
-                        const formData = new FormData();
-
-                        formData.append("image", file.replace(/^data:image\/\w+;base64,/, ''));
-
-                        const res = await axios.post(imageBBUrl, formData, {
-                            headers: {
-                                "content-type": "multipart/form-data",
-                            },
-                        });
-                        imageUrl = res?.data.data.display_url;
-                        console.log(imageUrl);
-                    }
-                    // If file is not an object, keep the existing URL
-                } else {
-                    imageUrl = BlogData.thumbnail;
-                }
-
-            }
-
-            // Check if image URL is valid and proceed to update blog data
-            if (imageUrl) {
-                const updatedBlogData = {
-                    ...BlogData,
-                    thumbnail: imageUrl,
-                };
-
-                const res = await blogService.updateBlogs(BlogData?._id, updatedBlogData);
-
-                if (res?.data) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Your blog has been updated successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'View Blog',
-                        confirmButtonColor: '#8e67e6',
-                        background: '#fff',
-                        color: '#333',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Navigate to the /my-blogs page
-                            window.location.href = "/my-blogs";
-                        }
-                    });
-                }
-            } else {
-                console.log("image not found");
-            }
-        } catch (error) {
-            console.error("Error occurred while editing the blog:", error.message);
-            Swal.fire({
-                title: 'Error!',
-                text: 'Something went wrong while updating your blog.',
-                icon: 'error',
-                confirmButtonText: 'Try Again',
-                confirmButtonColor: '#e74c3c',
-            });
-        } finally {
-            setLoading(false); // End loading state, regardless of success or failure
-        }
+    const handleEditBlog = () => {
+        updateBlog({ BlogData, setLoading });
     };
-
-
-
 
 
 
@@ -323,3 +163,7 @@ const MainPage = ({ blogDataEdit }) => {
 };
 
 export default MainPage;
+
+
+
+//341 line

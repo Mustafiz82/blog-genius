@@ -3,7 +3,7 @@ import { Together } from 'together-ai';
 import { generateImagePrompt } from './Promt';
 
 
-export const generateImageWithAI = async ({ title, setLoading, setImage, setBlogData  , setSelectedIndex }) => {
+export const generateImageWithAI = async ({ title, setLoading, setImage, setBlogData, setSelectedIndex }) => {
   setLoading(true);
   setImage(null);
   setSelectedIndex(0)
@@ -17,7 +17,7 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
 
   setTimeout(() => {
     setSelectedIndex(1)
-  }, 1000);
+  }, 2000);
 
   try {
     const response = await axios.post(
@@ -40,7 +40,10 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
     const generatedPrompt = aiContent.split('```json')?.[1]?.split('```')?.[0];
     const parsedPrompt = JSON.parse(generatedPrompt);
 
-    setSelectedIndex(2)
+
+    setTimeout(() => {
+      setSelectedIndex(2)
+    }, 3000);
 
     const imgResponse = await together.images.create({
       model: 'black-forest-labs/FLUX.1-schnell-Free',
