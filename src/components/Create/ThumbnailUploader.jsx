@@ -77,12 +77,13 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
             setLoading,
             setImage,
             setBlogData,
-            setSelectedIndex
+            setSelectedIndex,
+            loading
         });
     };
 
     const loadingText = [
-        "Analyzing Blog...", "Generating Image Prompt...", "Generating Image..."
+        "Analyzing Blog...", "Generating Image Prompt...", "Generating Image...", "Still working on it...", "Polishing the pixels...", "Almost there, hang tight!"
     ]
 
 
@@ -130,25 +131,28 @@ export default function ThumbnailUploader({ blogData, setBlogData }) {
                                 className="w-[50px]    animate-spin  h-[50px] object-cover opacity-50 "
                                 width={500} height={500} />
                         </div>
-
                         <div className="h-7 overflow-hidden">
-                            {
-                                loadingText?.map((item, idx) => (
-                                    <p
-                                        key={idx}
-                                        className={`text-left duration-300 ${selectedIndex == 0
-                                            ? "translate-y-0"
-                                            : selectedIndex == 1
-                                                ? "-translate-y-6"
-                                                : "-translate-y-12"
-                                            }`}
-                                    >
+                            {loadingText?.map((item, idx) => {
+                                // Map selectedIndex to translation value
+                                const translationValues = [
+                                    'translate-y-0',
+                                    '-translate-y-6',
+                                    '-translate-y-12',
+                                    '-translate-y-[72px]',
+                                    '-translate-y-24',
+                                    '-translate-y-[120px]'
+                                ];
+
+                                const translateClass = translationValues[selectedIndex] || 'translate-y-0';
+
+                                return (
+                                    <p key={idx} className={`text-left duration-300 ${translateClass}`}>
                                         {item}
                                     </p>
-                                ))
-                            }
-
+                                );
+                            })}
                         </div>
+
                     </div> : image && !loading ? (
                         typeof blogData.thumbnail === "string" ? (
                             <img src={blogData.thumbnail} alt="Thumbnail" className="h-full w-full rounded-lg object-cover" />

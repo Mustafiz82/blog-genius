@@ -3,10 +3,11 @@ import { Together } from 'together-ai';
 import { generateImagePrompt } from './Promt';
 
 
-export const generateImageWithAI = async ({ title, setLoading, setImage, setBlogData, setSelectedIndex }) => {
+export const generateImageWithAI = async ({ title, setLoading, setImage, setBlogData, setSelectedIndex, loading }) => {
   setLoading(true);
   setImage(null);
   setSelectedIndex(0)
+  const startTime = Date.now();
 
   const TogetherApiKey = process.env.NEXT_PUBLIC_TOGETHER_API_KEY;
   const together = new Together({ apiKey: TogetherApiKey });
@@ -41,9 +42,12 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
     const parsedPrompt = JSON.parse(generatedPrompt);
 
 
-    setTimeout(() => {
-      setSelectedIndex(2)
-    }, 3000);
+  
+    setTimeout(() => setSelectedIndex(2), 3000);
+    setTimeout(() => setSelectedIndex(3), 8000);
+    setTimeout(() => setSelectedIndex(4), 14000);
+    setTimeout(() => setSelectedIndex(5), 20000);
+    
 
     const imgResponse = await together.images.create({
       model: 'black-forest-labs/FLUX.1-schnell-Free',
