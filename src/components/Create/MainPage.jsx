@@ -91,8 +91,18 @@ const MainPage = ({ blogDataEdit }) => {
         };
 
         if (file) {
+
+
             const formData = new FormData();
-            formData.append("image", file);
+
+            if (typeof file == "object") {
+
+                formData.append("image", file);
+            }
+            else {
+                formData.append("image", file.replace(/^data:image\/\w+;base64,/, ''));
+
+            }
 
             try {
                 const res = await axios.post(imageBBUrl, formData, {
@@ -160,6 +170,7 @@ const MainPage = ({ blogDataEdit }) => {
                 if (typeof file === "object") {
                     // Upload image to ImageBB
                     const formData = new FormData();
+
                     formData.append("image", file);
 
                     const res = await axios.post(imageBBUrl, formData, {
@@ -170,9 +181,26 @@ const MainPage = ({ blogDataEdit }) => {
 
                     imageUrl = res?.data.data.display_url;
                     console.log(imageUrl);
+                } else if (typeof file === "string") {
+
+                    if (file.startsWith('data:image/')) {
+                        const formData = new FormData();
+
+                        formData.append("image", file.replace(/^data:image\/\w+;base64,/, ''));
+
+                        const res = await axios.post(imageBBUrl, formData, {
+                            headers: {
+                                "content-type": "multipart/form-data",
+                            },
+                        });
+                        imageUrl = res?.data.data.display_url;
+                        console.log(imageUrl);
+                    }
+                    // If file is not an object, keep the existing URL
                 } else {
-                    imageUrl = BlogData.thumbnail; // If file is not an object, keep the existing URL
+                    imageUrl = BlogData.thumbnail;
                 }
+
             }
 
             // Check if image URL is valid and proceed to update blog data

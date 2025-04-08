@@ -23,7 +23,7 @@ const Blog = ({ blogData, setBlogData , currentStep }) => {
         const OPENROUTER_API_KEY = "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"; 
         const messages = [{
             role: "user", 
-            content: `generate a detailed blog about topic '${blogData?.title}'. The blog format should be in Editor.js JSON format. Don't use image here. You can use <quote> if appropriate. Don't use any markdown (** or other). For formatting use <b>, <i>, or <u>. Example response: ${blogdetail?.blog}. please be extra careful in json structure cause one syntax error will crash my website as i am using api. Answer exactly in the same way. No format modification. Strictly follow it. Must include "version".`
+            content: `generate a detailed blog about topic '${blogData?.title}'. The blog format should be in Editor.js JSON format. Don't use image here. You can use <quote> if appropriate. Don't use any markdown (** or other). For formatting use <b>, <i>, or <u>. Example response: ${blogdetail?.blog}. please be extra careful in json structure cause one syntax error. dont make syntax error like "Expected ',' or ']' after array element in JSON at position " will crash my website as i am using api. Answer exactly in the same way. No format modification. Strictly follow it. Must include "version".`
         }];
     
         try {
