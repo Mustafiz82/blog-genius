@@ -33,6 +33,7 @@ const EDITOR_TOOLS = {
   image: SimpleImage,
 };
 
+
 function Editor({ data, onChange, holder, setBlogData, aiContent }) {
   const editorRef = useRef(null);
   const [editorReady, setEditorReady] = useState(false);
@@ -77,10 +78,11 @@ function Editor({ data, onChange, holder, setBlogData, aiContent }) {
 
   // Update content when aiContent changes (optional)
   useEffect(() => {
-    if (editorRef.current && data && editorReady) {
-      editorRef.current.render(data);
+    if (editorRef?.current && data && editorReady) {
+      console.log(data);
+      editorRef?.current?.render(data);
     }
-  }, [aiContent, editorReady]);
+  }, [aiContent]);
 
   return (
     <div>
