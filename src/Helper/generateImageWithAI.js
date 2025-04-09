@@ -42,10 +42,11 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
 
 
   
-    setTimeout(() => setSelectedIndex(2), 2000);
-    setTimeout(() => setSelectedIndex(3), 8000);
-    setTimeout(() => setSelectedIndex(4), 14000);
-    setTimeout(() => setSelectedIndex(5), 20000);
+    const timeOut1 = setTimeout(() => setSelectedIndex(2), 2000);
+    const timeOut2 = setTimeout(() => setSelectedIndex(3), 8000);
+    const timeOut3 = setTimeout(() => setSelectedIndex(4), 14000);
+    const timeOut4 = setTimeout(() => setSelectedIndex(5), 20000);
+    
     
 
     const imgResponse = await together.images.create({
@@ -61,6 +62,12 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
     const base64Image = imgResponse.data[0].b64_json;
     const imageDataUrl = `data:image/png;base64,${base64Image}`;
 
+    clearTimeout(timeOut1);
+    clearTimeout(timeOut2);
+    clearTimeout(timeOut3);
+    clearTimeout(timeOut4);
+    
+
     setImage(imageDataUrl);
     setBlogData(prev => ({
       ...prev,
@@ -72,6 +79,7 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
     setTimeout(() => {
       setLoading(false);
       setSelectedIndex(0)
+    
     }, 1000);
   }
 };
