@@ -2,6 +2,21 @@
 import axios from "axios";
 import { generateBlogPrompt } from "@/Helper/Promt";
 
+
+const fallbackContent = {
+    time: Date.now(),
+    blocks: [
+        {
+            "id": "xNqAtdq8FM",
+            "type": "paragraph",
+            "data": {
+                "text": "Oops! Looks like I got too excited and made a syntax error. 😅 Don’t worry, though—most of the time, I get it right! Try again and I’ll get it together. 🤖🔧"
+            }
+        }
+    ],
+    version: "2.31.0-rc.7"
+}
+
 export const generateBlogWithAi = async (blogData,
     setBlogData,
     setContent,
@@ -64,12 +79,30 @@ export const generateBlogWithAi = async (blogData,
                 setAiContentState(aiContent);
             } catch (parseError) {
                 console.error("Editor.js JSON Parsing Error:", parseError);
-                setErrorMessage("Error Generating content. Please try again.");
+
+
+                // setErrorMessage("Error Generating content. Please try again.");
+                setBlogData((prev) => ({
+                    ...prev,
+                    blog: fallbackContent,
+                }));
+
+                setContent(aiContent);
+                setAiContentState(aiContent);
+
+
+
             }
         }
     } catch (error) {
         console.error("OpenRouter API error:", error.response?.data || error.message);
-        setErrorMessage("Error: Failed to generate blog content. Please try again.");
+        setBlogData((prev) => ({
+            ...prev,
+            blog: fallbackContent,
+        }));
+
+        setContent(aiContent);
+        setAiContentState(aiContent);
     } finally {
         setLoading(false);
     }

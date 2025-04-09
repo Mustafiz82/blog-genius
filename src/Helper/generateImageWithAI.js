@@ -7,7 +7,6 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
   setLoading(true);
   setImage(null);
   setSelectedIndex(0)
-  const startTime = Date.now();
 
   const TogetherApiKey = process.env.NEXT_PUBLIC_TOGETHER_API_KEY;
   const together = new Together({ apiKey: TogetherApiKey });
@@ -43,7 +42,7 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
 
 
   
-    setTimeout(() => setSelectedIndex(2), 3000);
+    setTimeout(() => setSelectedIndex(2), 2000);
     setTimeout(() => setSelectedIndex(3), 8000);
     setTimeout(() => setSelectedIndex(4), 14000);
     setTimeout(() => setSelectedIndex(5), 20000);
@@ -70,7 +69,9 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
   } catch (error) {
     console.error('Image generation failed:', error);
   } finally {
-    setLoading(false);
-    setSelectedIndex(0)
+    setTimeout(() => {
+      setLoading(false);
+      setSelectedIndex(0)
+    }, 1000);
   }
 };
