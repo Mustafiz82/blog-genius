@@ -7,6 +7,7 @@ import { renderEditorJSContent } from '@/Helper/renderEditorJSContent';
 import { getBlogCreationDate } from '@/Helper/extractDate';
 import Image from 'next/image';
 import { blogdetail } from '@/app/Data/BlogData';
+import PostReact from './PostReact';
 
 const BlogDetail = ({ data }) => {
 
@@ -77,10 +78,7 @@ const BlogDetail = ({ data }) => {
                     <div>
                         <div className="flex justify-between  items-center gap-4  md:justify-center text-gray-700">
                             {/* Like Button */}
-                            <div className="flex text-primary items-center gap-2 ">
-                                <FaHeart className="cursor-pointer b transition" />
-                                <span>57</span>
-                            </div>
+                         <PostReact reactCount={data?.reactCount} id={data?._id}/>
 
                             {/* Divider */}
                             <div className="h-6 w-px bg-gray-300" />

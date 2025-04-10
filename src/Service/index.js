@@ -10,7 +10,9 @@ const blogService = {
     searchBlogs : (query) =>  httpClient.post(`/blogs/search` ,query),
     getMyBlogs : (email) =>  httpClient.post(`/blogs/my-blogs` ,email),
     updateBlogs : (id , formData ) => httpClient.put(`/blogs/${id}` , formData),
-    deleteBlogs : (id) => httpClient.delete(`/blogs/${id}`)
+    deleteBlogs : (id) => httpClient.delete(`/blogs/${id}`),
+    patchReact : (id , email ) => httpClient.patch(`/blogs/react/${id}` , email),
+    getReactStatus : (formData) => httpClient.post("/blog/react-status" , formData)
 };
 
 
