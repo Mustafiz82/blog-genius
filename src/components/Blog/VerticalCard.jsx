@@ -9,6 +9,7 @@ import { getBlogCreationDate } from '@/Helper/extractDate';
 import { extractDescription } from '@/Helper/extractDesctiption';
 import blogService from '@/Service';
 import { memo } from 'react';
+import { revalidateBlogs, revalidateBlogsCategories } from '@/app/actions';
 
 const VerticalCard = ({ item, hideDesc = false, quality = 30, edit = false, authorEmail }) => {
   
@@ -100,6 +101,8 @@ const VerticalCard = ({ item, hideDesc = false, quality = 30, edit = false, auth
                     </Link>
                 </div>
             )}
+
+
         </div>
     );
 };

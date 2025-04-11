@@ -1,4 +1,5 @@
-export const daynamic = "force-dynamic"
+export const revalidate = 1
+
 import Banner from '@/components/Blog/Banner';
 import Business from '@/components/Blog/Business';
 import Food from '@/components/Blog/Food';
@@ -25,11 +26,12 @@ const page = async () => {
 
     const res = await blogService.getBlogs(requestData)
 
-    console.log(res?.data);
+    // console.log(res?.data);
 
     return (
 
         <div className='w-full bg-[#F6F6F6]'>
+
             <div className='container  px-5 lg:px-10 py-10 mx-auto '>
                 <Banner data={res?.data?.random} />
                 <Travel data={res?.data?.Travel} />

@@ -9,7 +9,7 @@ import blogService from '@/Service';
 const SideContent = async () => {
     try {
         const res = await blogService.getPopularBlog();
-        console.log(res?.data);
+        // console.log(res?.data);
 
         return (
                 <div className='mt-9'>

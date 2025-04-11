@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "../style/toggle.css";
 import "../style/search.css";
 import { BiSearchAlt } from "react-icons/bi";
@@ -16,6 +16,8 @@ const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [userDropdownOpen, setUserDropdownOpen] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
 
     const subcategories = ["technology", "travel", "lifestyle", "Food", "business"];
 
@@ -48,7 +50,18 @@ const Nav = () => {
 
 
 
-
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setUserDropdownOpen(false);
+            }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div hidden={isAuthPage} className="relative">
@@ -57,7 +70,7 @@ const Nav = () => {
                 <div className='flex items-center gap-2'>
                     <LuMenu onClick={() => setDrawerOpen(!drawerOpen)} className='text-2xl cursor-pointer lg:hidden' />
 
-                    <Link href={"/"}>
+                    <Link prefetch={false} href={"/"}>
                         <h2 className='text-xl 2xl:text-2xl !font-semibold uppercase'>
                             <span className='text-primary'>Blog </span> Genius Ai
                         </h2>
@@ -72,9 +85,9 @@ const Nav = () => {
                         </li>
                         {subcategories.map((sub, idx) => (
                             <li className='hover:text-primary duration-300' key={idx}>
-                                <Link href={`/blogs/category/${sub} `} className="capitalize">
+                                <Link prefetch={false} href={`/blogs/category/${sub} `} className="capitalize">
                                     {sub}
-                                    
+
                                 </Link>
                             </li>
                         ))}
@@ -90,13 +103,13 @@ const Nav = () => {
                             Loading...
                         </button>
                     ) : session ? (
-                        <div className="relative">
+                        <div className="relative" ref={dropdownRef}>
                             <button
                                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                                 className="md:hover:bg-black/70  duration-300 md:px-8 md:py-3 bg-transparent md:bg-primary text-white font-semibold rounded-md flex items-center gap-2"
                             >
                                 <Image src={session?.user?.image} alt='profile' width={1000} height={1000} className='rounded-full w-8 h-8' />
-                                <span className='hidden md:block'>  {session?.user?.name?.split(" ")[0]}</span>
+                                <span className='hidden md:block'>{session?.user?.name?.split(" ")[0]}</span>
                                 <IoIosArrowDown className={`text-lg transition-transform hidden md:block duration-300 ${userDropdownOpen ? "rotate-180" : "rotate-0"}`} />
                             </button>
                             {userDropdownOpen && (
@@ -107,15 +120,13 @@ const Nav = () => {
                                     <li className="px-4 py-2 hover:bg-gray-100">
                                         <Link href="/my-blogs">My Blogs</Link>
                                     </li>
-                                    {/* <li className="px-4 py-2 hover:bg-gray-100">
-                                        <Link href="/drafts">Drafts</Link>
-                                    </li> */}
                                     <li className="px-4 py-2 hover:bg-gray-100">
                                         <button onClick={handleLogout}>Logout</button>
                                     </li>
                                 </ul>
                             )}
                         </div>
+
                     ) : (
                         <Link href={"/login"}>
                             <button className="hover:bg-black/70 duration-300 px-4 md:px-8 py-3 bg-primary text-white font-semibold rounded-md">

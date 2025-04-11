@@ -50,7 +50,7 @@ const TopBlog = ({ data }) => {
                     // quality={    80}
                     objectFit="cover"
                     unoptimized
-                    className="block aspect-[9:16] group-hover:scale-110 duration-500 w-full"
+                    className="block aspect-square group-hover:scale-110 duration-500 w-full"
                 />
 
                 <p className='leading-relaxed my-2'>{stripHtml(data?.description)}</p>

@@ -30,6 +30,9 @@ const publishBlog = async ({ BlogData, sessionUser, setLoading }) => {
         if (result.isConfirmed) {
           window.location.href = "/my-blogs";
         }
+        else{
+          window.location.reload();
+        }
       });
     }
   } catch (err) {
