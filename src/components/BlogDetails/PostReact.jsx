@@ -33,7 +33,7 @@ const PostReact = ({ id }) => {
 
     const handleReact = async () => {
         if (status === 'unauthenticated') {
-            router.push('/auth/login');
+            router.push('/login');
             return;
         }
 
