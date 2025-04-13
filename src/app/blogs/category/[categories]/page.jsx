@@ -1,5 +1,4 @@
-export const revalidate = 5;   
-
+export const revalidate = 60;   
 import HorizontalCard from '@/components/Blog/HorizontalCard';
 import SideContent from '@/components/Blog/SideContent';
 import VerticalCard from '@/components/Blog/VerticalCard';

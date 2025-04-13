@@ -85,7 +85,7 @@ const Nav = () => {
                         </li>
                         {subcategories.map((sub, idx) => (
                             <li className='hover:text-primary duration-300' key={idx}>
-                                <Link prefetch={false} href={`/blogs/category/${sub} `} className="capitalize">
+                                <Link prefetch={false}  href={`/blogs/category/${sub} `} className="capitalize">
                                     {sub}
 
                                 </Link>

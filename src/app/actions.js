@@ -7,13 +7,13 @@ export async function revalidateBlogs() {
   revalidatePath('/blogs')
 }
 
-export async function revalidateBlogsCategories({ path }) {
-  console.log("hit");
-  revalidatePath(`/blogs/${path}`);
+export async function revalidateBlogsCategories( path ) {
+  console.log(path);
+  revalidatePath(`/blogs/category/${path}`);
   revalidatePath(`/`);
 }
 
 
 // export async function revalidateBlogsDetails({path}) {
 //   revalidatePath( `/blogs/${path}`)
-// }
+// }  

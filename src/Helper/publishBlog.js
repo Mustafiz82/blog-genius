@@ -28,9 +28,9 @@ const publishBlog = async ({ BlogData, sessionUser, setLoading }) => {
         confirmButtonColor: '#8e67e6',
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "/my-blogs";
+          window.location.href = `/blogs/category/${BlogData?.category}`;
         }
-        else{
+        else {
           window.location.reload();
         }
       });

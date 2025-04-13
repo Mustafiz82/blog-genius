@@ -84,6 +84,7 @@ const MainPage = ({ blogDataEdit }) => {
     const handlePublishBlog = async ()  => {
         await publishBlog({ BlogData, sessionUser: data?.user, setLoading });
         revalidateBlogsCategories(BlogData?.category.toLowerCase())
+     
     };
 
     const handleEditBlog = async () => {

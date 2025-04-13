@@ -6,6 +6,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { HiOutlineMail } from "react-icons/hi";
 import Link from 'next/link';
 import { extractDescription } from '@/Helper/extractDesctiption';
+import PostReact from '../BlogDetails/PostReact';
 
 const TopBlog = ({ data }) => {
 
@@ -50,7 +51,7 @@ const TopBlog = ({ data }) => {
                     // quality={    80}
                     objectFit="cover"
                     unoptimized
-                    className="block aspect-square group-hover:scale-110 duration-500 w-full"
+                    className="block aspect-video group-hover:scale-110 duration-500 w-full"
                 />
 
                 <p className='leading-relaxed my-2'>{stripHtml(data?.description)}</p>
@@ -68,10 +69,7 @@ const TopBlog = ({ data }) => {
                     <div>
                         <div className="flex items-center gap-4  justify-center text-gray-700">
                             {/* Like Button */}
-                            <div className="flex items-center gap-2 ">
-                                <FaHeart className="cursor-pointer hover:text-primary transition" />
-                                <span>57</span>
-                            </div>
+                            <PostReact reactCount={data?.reactCount} id={data?._id} />
 
                             {/* Divider */}
                             <div className="h-6 w-px bg-gray-300" />

@@ -8,11 +8,12 @@ import Swal from 'sweetalert2';
 import { getBlogCreationDate } from '@/Helper/extractDate';
 import { extractDescription } from '@/Helper/extractDesctiption';
 import blogService from '@/Service';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { revalidateBlogs, revalidateBlogsCategories } from '@/app/actions';
 
 const VerticalCard = ({ item, hideDesc = false, quality = 30, edit = false, authorEmail }) => {
-  
+
+    const [hidden, setHidden] = useState(false)
     const handleDeleteBlog = async (e) => {
         e.stopPropagation();
 
@@ -38,6 +39,9 @@ const VerticalCard = ({ item, hideDesc = false, quality = 30, edit = false, auth
                             icon: "success",
                             confirmButtonColor: "#8e67e6"
                         });
+                        setHidden(true)
+                        revalidateBlogsCategories(item?.category.toLowerCase())
+
                         // Optional: trigger a callback to refresh the blog list
                     } else {
                         Swal.fire({
@@ -61,7 +65,7 @@ const VerticalCard = ({ item, hideDesc = false, quality = 30, edit = false, auth
     };
 
     return (
-        <div className="relative">
+        <div hidden={hidden} className="relative">
             <Link href={`/blogs/${item?._id}`}>
                 <div className="group w-full mx-auto font-sans">
                     <div className="relative overflow-hidden">
