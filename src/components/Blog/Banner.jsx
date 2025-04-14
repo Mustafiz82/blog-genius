@@ -26,12 +26,12 @@ const Banner = ({data}) => {
                     />
 
                     {/* Overlay with Content */}
-                    <div className="absolute  bg-gradient-to-b from-black/0 via-black/30 to-black/100 inset-0  text-white">
-                       <Link className='h-full flex flex-col justify-end p-8' href={`/blogs/${item?._id}`}>
+                    <div className="absolute  bg-gradient-to-b from-black/0 via-black/60  to-black/100 inset-0  text-white">
+                       <Link className='h-full flex flex-col justify-end p-3 md:p-8' href={`/blogs/${item?._id}`}>
                        <span className="bg-primary w-fit px-2 py-1 rounded-sm text-[10px] md:text-xs font-semibold uppercase mb-2">
                             {item?.category}
                         </span>
-                        <h1 className={` font-bold mb-4  ${idx == 0 ? "text-xl lg:!text-3xl 2xl:!text-4xl" : "text-lg lg:text-xl 2xl:!text-2xl"}`}>{item?.title}</h1>
+                        <h1 className={` font-bold line-clamp-2 mb-4  ${idx == 0 ? "  text-lg lg:!text-3xl 2xl:!text-4xl" : "text-sm lg:text-xl 2xl:!text-2xl"}`}>{item?.title}</h1>
                         <p className="text-[11px] md:text-sm">{item?.authorName} - {getBlogCreationDate(item?.id)}</p></Link>
                     </div>
                 </div>)

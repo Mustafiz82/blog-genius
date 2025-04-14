@@ -31,11 +31,11 @@ const TopBlog = ({ data }) => {
         <div>
 
             <div className=''>
-                <div className="mt-16 ">
+                <div className="mt-10 lg:mt-16 ">
                     <span className=" bg-primary text-white text-xs uppercase px-2 py-1">
                         {data?.category}
                     </span>
-                    <h1 className='!text-3xl mt-2'>
+                    <h1 className='text-2xl lg:!text-3xl mt-2'>
                         {data?.title}
                     </h1>
                     <p className="text-sm text-gray-600 my-2">
@@ -54,7 +54,7 @@ const TopBlog = ({ data }) => {
                     className="block aspect-video group-hover:scale-110 duration-500 w-full"
                 />
 
-                <p className='leading-relaxed my-2'>{stripHtml(data?.description)}</p>
+                <p className='leading-relaxed text-justify md:text-left my-4'>{stripHtml(data?.description)}</p>
 
                 <div className="flex justify-center my-10">
                     <Link href={`/blogs/${data?._id}`}>

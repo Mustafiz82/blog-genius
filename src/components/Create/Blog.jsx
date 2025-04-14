@@ -31,7 +31,7 @@ const Blog = ({ blogData, setBlogData, currentStep }) => {
 
 
     return (
-        <div className="py-5 sm:shadow-sm sm:px-5 my-16 mb-5 sm:bg-white/50 rounded-lg">
+        <div className="py-5 sm:shadow-sm  sm:w-auto sm:px-5 my-16 mb-5 sm:bg-white/50 rounded-lg">
             <div className="flex justify-between items-center">
                 {loading ? (
                     <p className="text-primary lg:mb-5 text-xl lg:text-3xl font-medium animate-pulse">

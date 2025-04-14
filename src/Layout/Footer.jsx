@@ -10,7 +10,7 @@ const Footer = () => {
   const subcategories = ["technology", "travel", "lifestyle", "Food", "business"];
 
   return (
-    <footer hidden={isAuthPage} className="bg-white border-t border-purple-300 py-16 text-center">
+    <footer hidden={isAuthPage} className="bg-white px-5 border-t border-purple-300 py-16 text-center">
       <div className="container mx-auto">
         <div className="flex flex-col items-center">
           <h2 className="text-xl font-semibold mt-2 uppercase">Blog Genius AI</h2>

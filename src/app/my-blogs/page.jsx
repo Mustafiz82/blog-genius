@@ -42,7 +42,7 @@ const page = () => {
 
     return (
         status !== "unauthenticated" && <div className='w-full min-h-screen bg-[#F6F6F6]'>
-            <div className='!container  px-5 lg:px-10 py-10 mx-auto '>
+            <div className='!container  px-5 lg:px-10 py-0 md:py-10 mx-auto '>
 
                 <div className='grid  mt-8 grid-cols-1 md:grid-cols-3 gap-5'>
                     {

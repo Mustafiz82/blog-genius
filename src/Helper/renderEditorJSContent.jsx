@@ -51,7 +51,7 @@ export const renderEditorJSContent = (content) => {
                 return (
                     <p
                         key={blockKey}
-                        className="mb-4 text-gray-700"
+                        className="mb-4 text-justify md:text-left text-gray-700"
                         dangerouslySetInnerHTML={{ __html: block.data.text }}
                     />
                 );
@@ -63,16 +63,16 @@ export const renderEditorJSContent = (content) => {
                         key={blockKey}
                         hidden = {index == 0 }
                         className={` my-6 !font-bold ${block.data.level === 1
-                                ? '!text-4xl !leading-tight'
+                                ? 'text-3xl lg:!text-4xl !leading-tight'
                                 : block.data.level === 2
-                                    ? '!text-3xl !leading-snug'
+                                    ? 'text-2xl lg:!text-3xl !leading-snug'
                                     : block.data.level === 3
-                                        ? '!text-2xl !leading-normal'
+                                        ? 'text-xl lg:!text-2xl !leading-normal'
                                         : block.data.level === 4
-                                            ? '!text-xl !leading-relaxed'
+                                            ? 'text-lg lg:!text-xl !leading-relaxed'
                                             : block.data.level === 5
-                                                ? '!text-lg !leading-loose'
-                                                : '!text-base !leading-loose'
+                                                ? 'text-base lg:!text-lg !leading-loose'
+                                                : 'text-sm lg:!text-base !leading-loose'
                             }`}
                         dangerouslySetInnerHTML={{ __html: block.data.text }}
                     />

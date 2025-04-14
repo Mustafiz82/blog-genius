@@ -23,8 +23,8 @@ export default async function Home() {
       <InfiniteImageSlider data={res?.data?.data} />
       {/* <Categories /> */}
       <div className="!container  mx-auto lg:px-10">
-    <BlogCategoryWrapper>    <Blog />
-    </BlogCategoryWrapper>
+        <BlogCategoryWrapper>    <Blog />
+        </BlogCategoryWrapper>
         <Newsletter />
       </div>
 

@@ -46,7 +46,7 @@ const page = async () => {
 
                     </div>
 
-                    <div className='md:col-span-2 lg:col-span-1 md:mt-[45px]'>
+                    <div className='col-span-2 lg:col-span-1 md:mt-[45px]'>
                         <SideContent />
                     </div>
 

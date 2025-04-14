@@ -8,7 +8,7 @@ const Travel = ({data}) => {
         <div>
 
            <CategoryTitle  title={"travel"} />
-            <div className='grid mt-8 grid-col-1 md:grid-cols-3 gap-5'>
+            <div className='grid mt-4 lg:mt-8 grid-col-1 md:grid-cols-3 gap-5'>
                 {
                     data?.map((item, idx) => <VerticalCard
                         key={idx}

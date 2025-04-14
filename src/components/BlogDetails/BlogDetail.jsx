@@ -13,7 +13,7 @@ const BlogDetail = ({ data }) => {
 
     return (
         <div className='md:col-span-2'>
-            <div className="mt-5 ">
+            <div className="lg:mt-5 ">
                 <span className=" bg-primary font-medium text-white text-xs uppercase px-2 py-1">
                     {data?.category}
                 </span>

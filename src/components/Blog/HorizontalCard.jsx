@@ -39,7 +39,7 @@ const HorizontalCard = ({ item , quality  , categoryPage}) => {
                     <div className=" w-2/3 ">
 
                         <div className="">
-                            <h2 className="text-2xl font-semibold  mb-2">{item?.title}</h2>
+                            <h2 className="text-2xl line-clamp-2 font-semibold  mb-2">{item?.title}</h2>
                             <p className="text-sm text-gray-600 mb-3">
                                 BY <span className='text-purple-500'>{item?.authorName}</span> - {getBlogCreationDate(item?.id)}
                             </p>

@@ -141,7 +141,7 @@ export default function App({data}) {
                         </div>
 
                         <div className="absolute bg-black/40  shadow-lg text-white flex flex-col justify-center items-center w-full h-full top-0 left-0 ">
-                            <div className="flex gap-2">
+                            <div className="text-[12px]  max-w-[70%]  md:text-sm lg:text-base flex flex-wrap justify-center gap-2">
                                 {
                                     slide.tags.map((item, idx) => <p key={idx}>
                                         <span className='text-purple-500'>#</span> {item}
@@ -149,7 +149,7 @@ export default function App({data}) {
                                 }
                             </div>
                             <Link   href={`/blogs/${slide?._id}`}>
-                            <h2 className="text-lg hover:underline   lg:text-3xl border-bottom mt-2 max-w-[700px] capitalize leading-[45px] text-center font-semibold">
+                            <h2 className="text-base max-w-[80%] hover:underline  mx-auto lg:text-3xl border-bottom mt-2  lg:max-w-[700px] capitalize lg:leading-[45px] text-center font-semibold">
                                 {slide?.title}
                             </h2>
 </Link>

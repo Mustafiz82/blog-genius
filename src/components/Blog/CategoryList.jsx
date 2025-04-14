@@ -20,7 +20,7 @@ const CategoryList = async () => {
             <div className="space-y-4">
 
                 {res?.data?.data?.map((item) => (
-                    <Link  href={`/blogs/item/${item?.category}`} key={item.category} className="flex items-center justify-between">
+                    <Link  href={`/blogs/category/${item?.category}`} key={item.category} className="flex items-center justify-between">
                         <div className="flex items-center">
                             <span className="text-primary mr-2">•</span>
                             <span className="text-gray-800">{item.category}</span>
