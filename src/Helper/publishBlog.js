@@ -27,6 +27,8 @@ const publishBlog = async ({ BlogData, sessionUser, setLoading }) => {
         confirmButtonText: 'View Blog',
         confirmButtonColor: '#8e67e6',
       }).then((result) => {
+
+        sessionStorage.setItem("justPublishedOrUpdatedBlog", "true");
         if (result.isConfirmed) {
           window.location.href = `/blogs/category/${BlogData?.category}`;
         }

@@ -25,6 +25,11 @@ const Nav = () => {
     const isAuthPage = pathname === "/login" || pathname === "/signup";
     const { data: session, status } = useSession();
 
+    
+
+ 
+  
+
     const handleLogout = () => {
         signOut();
         setUserDropdownOpen(false);
@@ -32,6 +37,7 @@ const Nav = () => {
 
     const [query, setQuery] = useState('');
     const router = useRouter();
+    
 
     const handleSearch = () => {
 
@@ -85,7 +91,7 @@ const Nav = () => {
                         </li>
                         {subcategories.map((sub, idx) => (
                             <li className='hover:text-primary duration-300' key={idx}>
-                                <Link prefetch={false}  href={`/blogs/category/${sub} `} className="capitalize">
+                                <Link  href={`/blogs/category/${sub}`} className="capitalize">
                                     {sub}
 
                                 </Link>

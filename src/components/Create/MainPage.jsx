@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import publishBlog from "@/Helper/publishBlog";
 import updateBlog from "@/Helper/updateBlog";
-import { revalidateBlogsCategories } from "@/app/actions";
+import { revalidateBlogsCategories, revalidateBlogsDetails } from "@/app/actions";
 
 const MainPage = ({ blogDataEdit }) => {
     const [currentStep, setCurrentStep] = useState(0);
@@ -81,16 +81,16 @@ const MainPage = ({ blogDataEdit }) => {
 
 
 
-    const handlePublishBlog = async ()  => {
+    const handlePublishBlog = async () => {
         await publishBlog({ BlogData, sessionUser: data?.user, setLoading });
         revalidateBlogsCategories(BlogData?.category.toLowerCase())
-     
+
     };
 
     const handleEditBlog = async () => {
         await updateBlog({ BlogData, setLoading });
-        await revalidateBlogsCategories({ path: BlogData?.category.toLowerCase()})
-        await revalidateBlogsDetails({ path: BlogData?._id})
+        await revalidateBlogsCategories(BlogData?.category.toLowerCase())
+        revalidateBlogsDetails(BlogData?._id)
     };
 
 

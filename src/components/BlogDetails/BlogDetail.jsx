@@ -11,10 +11,6 @@ import PostReact from './PostReact';
 
 const BlogDetail = ({ data }) => {
 
-
-
-
-    console.log(data);
     return (
         <div className='md:col-span-2'>
             <div className="mt-5 ">

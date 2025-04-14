@@ -1,13 +1,19 @@
+export const revalidate = 60;
 import SideContent from '@/components/Blog/SideContent';
 import BlogDetail from '@/components/BlogDetails/BlogDetail';
 import blogService from '@/Service';
 import React from 'react';
 
 
+export async function generateStaticParams()  {
+    const res = await blogService.getBlogIds();
+    return res?.data?.map(item => ({ id: item?._id.toString() }));
+}
+
 const page = async ({params}) => {
 
     const id = params.id
-    console.log(id);
+    // console.log(id);
 
     const res = await blogService.getSingleBlogs(id)
 

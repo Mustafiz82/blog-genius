@@ -6,6 +6,7 @@ import Newsletter from "@/components/Home/Newsletter";
 import InfiniteImageSlider from "@/components/Home/Slider";
 import Slider from "@/components/Home/Slider";
 import Text from "@/components/Home/Text";
+import BlogCategoryWrapper from "@/components/Layout/BlogCategoryWrapper";
 import blogService from "@/Service";
 import Image from "next/image";
 
@@ -22,7 +23,8 @@ export default async function Home() {
       <InfiniteImageSlider data={res?.data?.data} />
       {/* <Categories /> */}
       <div className="!container  mx-auto lg:px-10">
-        <Blog />
+    <BlogCategoryWrapper>    <Blog />
+    </BlogCategoryWrapper>
         <Newsletter />
       </div>
 
