@@ -45,7 +45,7 @@ const Footer = () => {
         </div>
 
         <hr className="border-purple-300" />
-        <p className="text-sm text-gray-600 mt-4">Copyright Ideapeel Inc © 2023, All Rights Reserved</p>
+        <p className="text-sm text-gray-600 mt-4">Copyright Blog Genius Inc © 2025, All Rights Reserved</p>
       </div>
     </footer> 
   );
