@@ -128,3 +128,10 @@ npm start
 
 For deployment, refer to the official [Vercel Deployment Documentation](https://nextjs.org/docs/deployment).
 
+# ✍️ Author
+
+- **Name:** Mustafiz Rahman 
+- **GitHub:** [@Mustafiz82](https://github.com/Mustafiz82)  
+- **Email:** [mustafiz8260@gmail.com](mailto:mustafiz8260@gmail.com)  
+- **Portfolio:** [yourportfolio.com](https://mustafizrahman.vercel.app/)
+
