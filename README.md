@@ -53,7 +53,20 @@
 
 
 
-## 🧪 Environment Setup
+## 🔧 Setup Instructions
+
+1. Clone the repo
+
+```bash
+git clone https://github.com/Mustafiz82/blog-genius.git
+cd blog-genius
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
 
 Before running the project, copy `.env.example` to `.env.local`:
 
@@ -85,20 +98,6 @@ NEXT_PUBLIC_TOGETHER_API_KEY=     # Together AI API key
 
 ```
 
-
-## 🛠 Getting Started
-
-Install dependencies:
-
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
-```
 
 Run the development server:
 
