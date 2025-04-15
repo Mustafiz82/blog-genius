@@ -131,7 +131,7 @@ export default function App({data}) {
                             <img
                                 src={slide?.thumbnail}
 
-                                className={`min-w-full h-68  sm:h-96 md:h-[640px] object-cover transition-all duration-1000 ${isSliding && (idx === slideIndex) ? (slidingDirection == "left" ? "scale-175 duration-1000 object-right" : "scale-175 object-left") : "scale-100 "
+                                className={`min-w-full h-72 bg-red-600 sm:h-96 md:h-[640px] object-cover transition-all duration-1000 ${isSliding && (idx === slideIndex) ? (slidingDirection == "left" ? "scale-175 duration-1000 object-right" : "scale-175 object-left") : "scale-100 "
                                     } `}
                                 alt={`Slider - ${idx + 1}`}
 
@@ -144,7 +144,7 @@ export default function App({data}) {
                             <div className="text-[12px]  max-w-[70%]  md:text-sm lg:text-base flex flex-wrap justify-center gap-2">
                                 {
                                     slide.tags.map((item, idx) => <p key={idx}>
-                                        <span className='text-purple-500'>#</span> {item}
+                                        <span className='text-purple-400'>#</span> {item}
                                     </p>)
                                 }
                             </div>
