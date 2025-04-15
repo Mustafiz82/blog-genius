@@ -38,7 +38,7 @@
 import axios from "axios";
 
 const uploadImageToImageBB = async (file) => {
-  const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/danjjdo1b/image/upload";
+  const CLOUDINARY_URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL
   const UPLOAD_PRESET = "blog_genius_ai";
 
   // If already a hosted URL or not a valid image, return as-is
