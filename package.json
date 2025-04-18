@@ -23,6 +23,7 @@
     "@editorjs/raw": "^2.5.1",
     "@editorjs/simple-image": "^1.6.0",
     "@editorjs/table": "^2.4.4",
+    "@vercel/analytics": "^1.5.0",
     "@vingeray/editorjs-markdown-converter": "^0.1.2",
     "axios": "^1.8.4",
     "highlight.js": "^11.11.1",

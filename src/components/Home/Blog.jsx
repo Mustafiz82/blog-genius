@@ -14,7 +14,7 @@ const Blog = async () => {
 
 
     return (
-        <div>
+        <div className=''>
             <div className='grid  mx-5 lg:mx-10 gap-5 mt-5 lg:mt-12 grid-cols-1 md:grid-cols-3 ' >
                 {
                     res?.data?.map((item, idx) => <VerticalCard key={idx} item={item} />)

@@ -28,7 +28,7 @@ export const generateImageWithAI = async ({ title, setLoading, setImage, setBlog
       },
       {
         headers: {
-          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
         },
       }

@@ -12,6 +12,8 @@ const Title = ({ blogData, setBlogData }) => {
     const [loading, setLoading] = useState(false); // Loading state
     const [generatedTitleArray, setGeneratedTitleArray] = useState([])
     const [generatedTitleArrayIndex, setGeneratedTitleArrayIndex] = useState(0)
+    const OPENROUTER_API_KEY = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY
+
 
     const handleChange = (e) => {
         setBlogData(prev => ({
@@ -21,37 +23,33 @@ const Title = ({ blogData, setBlogData }) => {
     };
 
     const handleGenerateTitle = async () => {
-
         const prompt = generateTitlePromt(blogData?.title);
-        const OPENROUTER_API_KEY = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY
         const messages = [{ role: "user", content: prompt}];
-
-
+        
+        console.log('API Key:', OPENROUTER_API_KEY); // Ensure it's correct
+    
         setLoading(true);
-
-
+    
         try {
             const response = await axios.post(
                 'https://openrouter.ai/api/v1/chat/completions',
-                {
-                    // model: 'google/gemini-2.0-flash-exp:free',
-                    model: 'google/gemini-2.0-flash-lite-001',
-                    messages
-                },
+                { model: 'google/gemini-2.0-flash-lite-001', messages },
                 {
                     headers: {
                         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                 
                         'Content-Type': 'application/json',
                     },
                 }
             );
-
-            console.log(response?.data);
-            const aiMessage = await  response?.data?.choices?.[0]?.message?.content
-            console.log( response.data.choices[0].message.content);
+            console.log('API Response:', response?.data);
+            const aiMessage = response?.data?.choices?.[0]?.message?.content;
             setResponse(aiMessage);
         } catch (error) {
-            console.error('OpenRouter API error:', error.response?.data || error.message);
+            console.error('Error Details:', error.response?.data);
+            console.error('Error Message:', error.message);
+            console.error('Error Status:', error.response?.status);
+            console.error('Error Headers:', error.response?.headers);
         } finally {
             setLoading(false); // Stop loading after fetching
         }

@@ -17,7 +17,7 @@ export default function Newsletter({ blog }) {
           
     }
     return (
-        <div className={`relative overflow-hidden my-10 bg-white ${!blog && "shadow-lg"} rounded-lg py-14 px-5 lg:p-8 lg:py-12  ${blog ? "mx-0 text-center space-y-3" : "mx-5 lg:mx-10"} `}>
+        <div className={`relative overflow-hidden   bg-white ${!blog && "shadow-lg"} rounded-lg py-14 px-5 lg:p-8 lg:py-12  ${blog ? "mx-0 text-center space-y-3" : "mx-5 lg:mx-10"} `}>
             {/* Title & Subtitle */}
             <h2 className="text-xl font-semibold text-gray-900">Subscribe Newsletter</h2>
             <p className="text-gray-600">Sign up for free and be the first to get notified about new posts.</p>

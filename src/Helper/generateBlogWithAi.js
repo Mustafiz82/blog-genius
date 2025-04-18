@@ -41,7 +41,7 @@ export const generateBlogWithAi = async (blogData,
             },
             {
                 headers: {
-                    Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
                     "Content-Type": "application/json",
                 },
             }

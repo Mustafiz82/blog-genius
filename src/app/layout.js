@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';
+
 import "./globals.css";
 import Nav from "@/Layout/Nav";
 import Footer from "@/Layout/Footer";
@@ -28,6 +30,7 @@ export default function RootLayout({ children }) {
           <Nav />
           <div className="bg-[#f7f7f7]">
             {children}
+            <Analytics />
           </div>
           <Footer />
         </Wrapper>

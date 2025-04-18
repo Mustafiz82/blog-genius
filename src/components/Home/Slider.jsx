@@ -131,7 +131,7 @@ export default function App({data}) {
                             <img
                                 src={slide?.thumbnail}
 
-                                className={`min-w-full h-72 bg-red-600 sm:h-96 md:h-[640px] object-cover transition-all duration-1000 ${isSliding && (idx === slideIndex) ? (slidingDirection == "left" ? "scale-175 duration-1000 object-right" : "scale-175 object-left") : "scale-100 "
+                                className={`min-w-full h-72  sm:h-96 md:h-[640px] object-cover transition-all duration-1000 ${isSliding && (idx === slideIndex) ? (slidingDirection == "left" ? "scale-175 duration-1000 object-right" : "scale-175 object-left") : "scale-100 "
                                     } `}
                                 alt={`Slider - ${idx + 1}`}
 

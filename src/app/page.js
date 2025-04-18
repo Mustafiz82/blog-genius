@@ -25,7 +25,9 @@ export default async function Home() {
       <div className="!container  mx-auto lg:px-10">
         <BlogCategoryWrapper>    <Blog />
         </BlogCategoryWrapper>
-        <Newsletter />
+        <div className="pb-10">
+          <Newsletter />
+        </div>
       </div>
 
     </div>
