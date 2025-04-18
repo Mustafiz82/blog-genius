@@ -53,7 +53,20 @@
 
 
 
-## 🧪 Environment Setup
+## 🔧 Setup Instructions
+
+1. Clone the repo
+
+```bash
+git clone https://github.com/Mustafiz82/blog-genius.git
+cd blog-genius
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
 
 Before running the project, copy `.env.example` to `.env.local`:
 
@@ -86,20 +99,6 @@ NEXT_PUBLIC_TOGETHER_API_KEY=     # Together AI API key
 ```
 
 
-## 🛠 Getting Started
-
-Install dependencies:
-
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
-```
-
 Run the development server:
 
 ```bash
@@ -128,4 +127,11 @@ npm start
 ## 📤 Deployment
 
 For deployment, refer to the official [Vercel Deployment Documentation](https://nextjs.org/docs/deployment).
+
+# ✍️ Author
+
+- **Name:** Mustafiz Rahman 
+- **GitHub:** [@Mustafiz82](https://github.com/Mustafiz82)  
+- **Email:** [mustafiz8260@gmail.com](mailto:mustafiz8260@gmail.com)  
+- **Portfolio:** [mustafizrahman.vercel.app](https://mustafizrahman.vercel.app/)
 
